@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
-import timestring from 'timestring';
+import timestring from './timestring';
 
 const keyMap = array =>
   array.reduce((map, item) => {
@@ -155,6 +155,7 @@ class PaceCalculator extends PureComponent<Props, State> {
           <div style={{ fontSize: 26 }}>
             I want to run
             <input
+              autoFocus
               type="text"
               name="distance"
               placeholder="a marathon or 1500 m"

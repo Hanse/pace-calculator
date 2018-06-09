@@ -48,7 +48,8 @@ class PaceCalculatorView extends PureComponent<Props> {
             <strong>Distance</strong> <span>{withCommas(meters)}</span> m
           </li>
           <li>
-            <strong>Time</strong> <span>{toHHMMSS(seconds)}</span>
+            <strong>Time</strong> <span style={{ color: '#999' }}>~</span>
+            <span>{toHHMMSS(seconds)}</span>
           </li>
           <li>
             <strong>Required pace</strong>{' '}
@@ -100,9 +101,10 @@ class PaceCalculatorView extends PureComponent<Props> {
         </p>
 
         <p>
-          If you are running on a{' '}
-          <span className="badge track">regular track</span>, the time in the
-          400 m row should match your watch ⌚️ after each lap.
+          Use this tool to go from distance and time to pace and speed. If you
+          are running on a <span className="badge track">regular track</span>,
+          the time in the 400 m row should match your watch ⌚️ after each lap
+          to be sure you make it in time.
         </p>
       </div>
     );
