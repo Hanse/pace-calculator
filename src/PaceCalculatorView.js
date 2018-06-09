@@ -6,13 +6,22 @@ import cx from 'classnames';
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
 type ToHHMMSSMode = 'units' | 'normal' | null;
+type Seconds = number;
 
-const toHHMMSS = (value, mode: ToHHMMSSMode = 'units') => {
-  const hours = (value / 3600) | 0;
-  const minutes = (value / 60 - hours * 60) | 0;
-  const seconds = Math.ceil(value - minutes * 60 - hours * 3600);
+export const toHHMMSS = (
+  time: Seconds,
+  mode: ToHHMMSSMode = 'units',
+  digits: number = 0
+) => {
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor((time - hours * 3600) / 60);
+  const seconds = time - hours * 3600 - minutes * 60;
 
-  const parts = [[hours, 'hours'], [minutes, 'min'], [seconds, 'sec']];
+  const parts = [
+    [hours, 'hours'],
+    [minutes, 'min'],
+    [seconds.toFixed(digits), 'sec']
+  ];
 
   if (!hours) {
     parts.shift();
@@ -22,7 +31,7 @@ const toHHMMSS = (value, mode: ToHHMMSSMode = 'units') => {
     return parts.map(([value, unit]) => `${value} ${unit}`).join(' ');
   }
 
-  return parts.map(([value]) => (value < 10 ? `0${value}` : value)).join(':');
+  return parts.map(([value]) => (+value < 10 ? `0${value}` : value)).join(':');
 };
 
 const toKMH = (meters, seconds) => {
@@ -48,8 +57,7 @@ class PaceCalculatorView extends PureComponent<Props> {
             <strong>Distance</strong> <span>{withCommas(meters)}</span> m
           </li>
           <li>
-            <strong>Time</strong> <span style={{ color: '#999' }}>~</span>
-            <span>{toHHMMSS(seconds)}</span>
+            <strong>Time</strong> <span>{toHHMMSS(seconds, 'normal', 2)}</span>
           </li>
           <li>
             <strong>Required pace</strong>{' '}
@@ -79,6 +87,7 @@ class PaceCalculatorView extends PureComponent<Props> {
                 >
                   <td style={{ width: '50%' }}>{withCommas(distance)} m</td>
                   <td>
+                    <span style={{ color: '#ccc' }}>~ </span>
                     <span
                       style={{ cursor: 'help' }}
                       title={`${scaledSeconds.toFixed(2)} seconds`}

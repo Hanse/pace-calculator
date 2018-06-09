@@ -8,7 +8,7 @@ class App extends PureComponent<{}> {
   render() {
     return (
       <div className="App">
-        <header>
+        <header className="App-header">
           <h1>
             <span role="img" aria-label="runner">
               🏃‍♂️
@@ -21,9 +21,15 @@ class App extends PureComponent<{}> {
           </h1>
         </header>
 
-        <PaceCalculatorInputController
-          render={props => <PaceCalculatorView {...props} />}
-        />
+        <div className="App-content">
+          <PaceCalculatorInputController
+            render={props => <PaceCalculatorView {...props} />}
+          />
+        </div>
+
+        <footer className="App-footer">
+          Made by <a href="https://koren.im">koren.im</a>
+        </footer>
       </div>
     );
   }
