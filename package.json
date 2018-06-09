@@ -16,9 +16,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "yarn run cypress open",
+    "ci": "yarn run flow && CI=true yarn run test && yarn run cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "cypress": "^3.0.1"
   }
 }
