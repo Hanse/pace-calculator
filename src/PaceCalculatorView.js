@@ -75,61 +75,63 @@ class PaceCalculatorView extends PureComponent<Props> {
     const { meters, seconds } = this.props;
     return (
       <View>
-        <Summary
-          data={[
-            ['Distance', `${withCommas(meters)} m`],
-            ['Time', toHHMMSS(seconds, 'normal', 2)],
-            [
-              'Required pace',
-              `${toHHMMSS(
-                (seconds * 1000) / (meters || 1),
-                'normal'
-              )} min/km (${toKMH(meters, seconds)})`
-            ]
-          ]}
-        />
-        <View style={{ paddingVertical: 30 }}>
-          <View style={[styles.row, { padding: 8 }]}>
-            <View style={[{ flex: 1 }]}>
-              <Text style={[styles.text, styles.textBold]}>Lap</Text>
-            </View>
-            <View style={[{ flex: 1 }]}>
-              <Text style={[styles.text, styles.textBold]}>Time</Text>
-            </View>
-          </View>
-          {PREDEFINED_LAPS.map((distance, index) => {
-            const scaledSeconds = (seconds * distance) / (meters || 1);
-            return (
-              <View
-                key={index}
-                style={[
-                  {
-                    flexDirection: 'row'
-                  },
-                  distance === 400 && {
-                    backgroundColor: '#ffbfad'
-                  },
-                  distance === 1000 && {
-                    backgroundColor: '#e2f7b2'
-                  },
-                  { padding: 8 }
-                ]}
-              >
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.text}>{withCommas(distance)} m</Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={[styles.text, { cursor: 'help' }]}
-                    title={`${scaledSeconds.toFixed(2)} seconds`}
-                  >
-                    <Text style={{ color: '#ccc' }}>~ </Text>
-                    {toHHMMSS(scaledSeconds)}
-                  </Text>
-                </View>
+        <View style={{ filter: !meters || !seconds ? 'blur(4px)' : undefined }}>
+          <Summary
+            data={[
+              ['Distance', `${withCommas(meters)} m`],
+              ['Time', toHHMMSS(seconds, 'normal', 2)],
+              [
+                'Required pace',
+                `${toHHMMSS(
+                  (seconds * 1000) / (meters || 1),
+                  'normal'
+                )} min/km (${toKMH(meters, seconds)})`
+              ]
+            ]}
+          />
+          <View style={{ paddingVertical: 30 }}>
+            <View style={[styles.row, { padding: 8 }]}>
+              <View style={[{ flex: 1 }]}>
+                <Text style={[styles.text, styles.textBold]}>Lap</Text>
               </View>
-            );
-          })}
+              <View style={[{ flex: 1 }]}>
+                <Text style={[styles.text, styles.textBold]}>Time</Text>
+              </View>
+            </View>
+            {PREDEFINED_LAPS.map((distance, index) => {
+              const scaledSeconds = (seconds * distance) / (meters || 1);
+              return (
+                <View
+                  key={index}
+                  style={[
+                    {
+                      flexDirection: 'row'
+                    },
+                    distance === 400 && {
+                      backgroundColor: '#ffbfad'
+                    },
+                    distance === 1000 && {
+                      backgroundColor: '#e2f7b2'
+                    },
+                    { padding: 8 }
+                  ]}
+                >
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.text}>{withCommas(distance)} m</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text
+                      style={[styles.text, { cursor: 'help' }]}
+                      title={`${scaledSeconds.toFixed(2)} seconds`}
+                    >
+                      <Text style={{ color: '#ccc' }}>~ </Text>
+                      {toHHMMSS(scaledSeconds)}
+                    </Text>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
         </View>
 
         <Text style={[styles.paragraph, styles.text]}>

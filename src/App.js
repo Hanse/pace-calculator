@@ -27,11 +27,7 @@ class App extends PureComponent<{}> {
 
         <PaceCalculatorInputController
           render={({ meters, seconds }) => (
-            <View
-              style={{ filter: !meters || !seconds ? 'blur(4px)' : undefined }}
-            >
-              <PaceCalculatorView {...{ meters, seconds }} />
-            </View>
+            <PaceCalculatorView {...{ meters, seconds }} />
           )}
         />
       </ScrollView>
