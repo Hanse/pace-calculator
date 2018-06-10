@@ -14,7 +14,10 @@ const hundreds = value => {
 };
 
 const TIMES = [
-  [/^(\d+)(\.\d{1,3})?$/, match => parseInt(match[1], 10) + hundreds(match[2])],
+  [
+    /^([\d\s]+)(\.\d{1,3})?$/,
+    match => parseInt(match[1], 10) + hundreds(match[2])
+  ],
   [
     /^(\d{1,2}):(\d{1,2})(\.\d{1,3})?$/,
     match => {
@@ -49,11 +52,11 @@ const TIMES = [
 ];
 
 const DISTANCES = [
-  [/half[-\s]?marath?on/, 21098],
-  [/marath?on/, 42195],
-  [/10\s?km?/, 10000],
-  [/5\s?km?/, 5000],
-  [/[a|1]?\s?miles?/, 1609]
+  [/half[-\s]?marath?on/i, 21098],
+  [/marath?on/i, 42195],
+  [/10\s?km?/i, 10000],
+  [/5\s?km?/i, 5000],
+  [/[a|1]?\s?miles?/i, 1609]
 ];
 
 const parseInput = (rules, defaultEvaluator: string => number) => value => {

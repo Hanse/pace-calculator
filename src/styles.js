@@ -37,7 +37,6 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     fontSize: baseFontSize,
-    marginHorizontal: 5,
     backgroundColor: '#fff'
   },
   picker: {

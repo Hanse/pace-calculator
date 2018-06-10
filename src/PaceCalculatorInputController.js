@@ -65,12 +65,7 @@ class PaceCalculator extends PureComponent<Props, State> {
   };
 
   handlePresetSelect = (key: string) => {
-    console.log(key);
-    if (!key) {
-      return;
-    }
-
-    const [distance, time] = PRESETS[key];
+    const [distance, time] = key ? PRESETS[key] : ['', ''];
     this.setState({ time, distance });
   };
 
@@ -93,10 +88,17 @@ class PaceCalculator extends PureComponent<Props, State> {
             }}
           >
             <View
-              style={[styles.row, { marginBottom: 10, alignItems: 'center' }]}
+              style={[
+                styles.row,
+                {
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }
+              ]}
             >
               <TextInput
-                style={[styles.textInput, { flex: 1 }]}
+                style={[styles.textInput, { width: '80%', marginRight: 10 }]}
+                autoCapitalize="none"
                 autoFocus
                 type="text"
                 name="distance"
@@ -104,30 +106,23 @@ class PaceCalculator extends PureComponent<Props, State> {
                 value={this.state.distance}
                 onChange={this.handleInput}
               />
-              <View style={{ width: 42 }}>
-                <Text
-                  style={[styles.text, { fontSize: 30, fontWeight: '300' }]}
-                >
-                  {'👟'}
-                </Text>
-              </View>
+              <Text style={[styles.text, { fontSize: 30, fontWeight: '300' }]}>
+                {'👟'}
+              </Text>
             </View>
             <View style={[styles.row, { alignItems: 'center' }]}>
               <TextInput
-                style={[styles.textInput, { flex: 1 }]}
+                autoCapitalize="none"
+                style={[styles.textInput, { width: '80%', marginRight: 10 }]}
                 type="text"
                 name="time"
                 placeholder="in 3:26.00 or 3 hours"
                 value={this.state.time}
                 onChange={this.handleInput}
               />
-              <View style={{ width: 42 }}>
-                <Text
-                  style={[styles.text, { fontSize: 30, fontWeight: '300' }]}
-                >
-                  {'⏱'}
-                </Text>
-              </View>
+              <Text style={[styles.text, { fontSize: 30, fontWeight: '300' }]}>
+                {'⏱'}
+              </Text>
             </View>
           </View>
 

@@ -8,9 +8,9 @@ const CONVERSION = {
 };
 
 const UNITS = {
-  s: /^(s|sec|secs|second|seconds)(.+)?$/,
-  m: /^(m|min|mins|minute|minutes)(.+)?$/,
-  h: /^(h|ho|hou|hour|hours|hr|hrs)(.+)?$/
+  s: /^(s|sec|secs|second|seconds)(.+)?$/i,
+  m: /^(m|min|mins|minute|minutes)(.+)?$/i,
+  h: /^(h|ho|hou|hour|hours|hr|hrs)(.+)?$/i
 };
 
 export default function parse(input: string) {
