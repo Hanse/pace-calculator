@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import cx from 'classnames';
+import { View, Text } from 'react-native';
 
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
@@ -47,75 +47,108 @@ type Props = {
   seconds: number
 };
 
+const Summary = ({ data }) => (
+  <View style={{ backgroundColor: '#fff8d3', padding: 15 }}>
+    {data.map(([key, value]) => (
+      <View key={key} style={{ flexDirection: 'row' }}>
+        <View style={{ width: 120 }}>
+          <Text style={{ fontWeight: 700 }}>{key}</Text>
+        </View>
+        <Text>{value}</Text>
+      </View>
+    ))}
+  </View>
+);
+
+const Badge = ({ backgroundColor, color, children }) => (
+  <View style={{ backgroundColor }}>
+    <Text style={{ color }}>{children}</Text>
+  </View>
+);
+
 class PaceCalculatorView extends PureComponent<Props> {
   render() {
     const { meters, seconds } = this.props;
     return (
-      <div>
-        <ul className="summary">
-          <li>
-            <strong>Distance</strong> <span>{withCommas(meters)}</span> m
-          </li>
-          <li>
-            <strong>Time</strong> <span>{toHHMMSS(seconds, 'normal', 2)}</span>
-          </li>
-          <li>
-            <strong>Required pace</strong>{' '}
-            <span>
-              {toHHMMSS((seconds * 1000) / (meters || 1), null)} min/km{' '}
-            </span>
-            <span>({toKMH(meters, seconds)})</span>
-          </li>
-        </ul>
-        <table>
-          <thead>
-            <tr>
-              <th>Lap</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
+      <View>
+        <Summary
+          data={[
+            ['Distance', `${withCommas(meters)} m`],
+            ['Time', toHHMMSS(seconds, 'normal', 2)],
+            [
+              'Required pace',
+              `${toHHMMSS(
+                (seconds * 1000) / (meters || 1),
+                'normal'
+              )} min/km (${toKMH(meters, seconds)})`
+            ]
+          ]}
+        />
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Text>Lap</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text>Time</Text>
+            </View>
+          </View>
+          <View>
             {PREDEFINED_LAPS.map((distance, index) => {
               const scaledSeconds = (seconds * distance) / (meters || 1);
               return (
-                <tr
+                <View
                   key={index}
-                  className={cx({
-                    track: distance === 400,
-                    pace: distance === 1000
-                  })}
+                  style={[
+                    {
+                      flexDirection: 'row'
+                    },
+                    distance === 400 && {
+                      backgroundColor: '#dd6137',
+                      color: 'white'
+                    },
+                    distance === 1000 && {
+                      backgroundColor: '#e2f7b2'
+                    }
+                  ]}
                 >
-                  <td style={{ width: '50%' }}>{withCommas(distance)} m</td>
-                  <td>
-                    <span style={{ color: '#ccc' }}>~ </span>
-                    <span
+                  <View style={{ flex: 1 }}>
+                    <Text>{withCommas(distance)} m</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text
                       style={{ cursor: 'help' }}
                       title={`${scaledSeconds.toFixed(2)} seconds`}
                     >
+                      <Text style={{ color: '#ccc' }}>~ </Text>
                       {toHHMMSS(scaledSeconds)}
-                    </span>
-                  </td>
-                </tr>
+                    </Text>
+                  </View>
+                </View>
               );
             })}
-          </tbody>
-        </table>
+          </View>
+        </View>
 
-        <p>
+        <Text>
           This nifty pace calculator makes you aware of how fast you need to run
-          on average to achieve your time-goals. The table shows the required
+          on average to achieve your time-goals. The View shows the required
           time on each lap of different lengths to finish in the desired total
-          time.{' '}
-          <em>It does not show estimated equivalent race performances.</em>
-        </p>
+          time.
+          <Text style={{ fontStyle: 'italic' }}>
+            It does not show estimated equivalent race performances.
+          </Text>
+        </Text>
 
-        <p>
+        <Text>
           Use this tool to go from distance and time to pace and speed. If you
-          are running on a <span className="badge track">regular track</span>,
-          the time in the 400 m row should match your watch ⌚️ after each lap
-          to be sure you make it in time.
-        </p>
-      </div>
+          are running on a{' '}
+          <Badge backgroundColor="#dd6137" color="white">
+            regular track
+          </Badge>, the time in the 400 m row should match your watch ⌚️ after
+          each lap to be sure you make it in time.
+        </Text>
+      </View>
     );
   }
 }

@@ -1,6 +1,7 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
+import { View, Text, Picker, TextInput } from 'react-native';
 import timestring from './timestring';
 
 const keyMap = array =>
@@ -133,8 +134,7 @@ class PaceCalculator extends PureComponent<Props, State> {
     distance: ''
   };
 
-  handlePresetSelect = (e: SyntheticInputEvent<*>) => {
-    const key = e.target.value;
+  handlePresetSelect = (key: string) => {
     if (!key) {
       return;
     }
@@ -150,49 +150,47 @@ class PaceCalculator extends PureComponent<Props, State> {
 
   render() {
     return (
-      <div>
-        <form onSubmit={e => e.preventDefault()}>
-          <div style={{ fontSize: 26 }}>
-            I want to run
-            <input
+      <View>
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text>I want to run</Text>
+            <TextInput
               autoFocus
               type="text"
               name="distance"
               placeholder="a marathon or 1500 m"
               value={this.state.distance}
               onChange={this.handleInput}
-            />👟 in
-            <input
+            />
+            <Text>👟 in</Text>
+            <TextInput
               type="text"
               name="time"
               placeholder="3:26.00 or 3 hours"
               value={this.state.time}
               onChange={this.handleInput}
             />
-            ⏱
-          </div>
+            <Text>⏱</Text>
+          </View>
 
-          <hr />
-          <label>
-            Analyze a preset instead
-            <select onChange={this.handlePresetSelect}>
-              <option value="">Choose a preset</option>
+          <View>
+            <Text>Analyze a preset instead</Text>
+            <Picker onValueChange={this.handlePresetSelect}>
+              <Picker.Item label="" />
               {Object.keys(PRESETS).map(key => {
                 const [, , description] = PRESETS[key];
                 return (
-                  <option key={key} value={key}>
-                    {description}
-                  </option>
+                  <Picker.Item key={key} label={description} value={key} />
                 );
               })}
-            </select>
-          </label>
-        </form>
+            </Picker>
+          </View>
+        </View>
         {this.props.render({
           meters: parseMeters(this.state.distance),
           seconds: parseSeconds(this.state.time)
         })}
-      </div>
+      </View>
     );
   }
 }

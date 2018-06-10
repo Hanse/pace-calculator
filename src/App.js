@@ -1,36 +1,35 @@
 // @flow
 
 import React, { PureComponent } from 'react';
+import { View, Text } from 'react-native';
 import PaceCalculatorInputController from './PaceCalculatorInputController';
 import PaceCalculatorView from './PaceCalculatorView';
 
 class App extends PureComponent<{}> {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>
-            <span role="img" aria-label="runner">
+      <View style={{ backgroundColor: '#fff', flex: 1 }}>
+        <View>
+          <Text style={{ fontSize: 32 }}>
+            <Text role="img" aria-label="runner">
               🏃‍♂️
-            </span>How <em>fast</em> must I run?<span
+            </Text>How <Text>fast</Text> must I run?<Text
               role="img"
               aria-label="runner"
             >
               🏃🏽‍♀️
-            </span>
-          </h1>
-        </header>
+            </Text>
+          </Text>
+        </View>
 
-        <div className="App-content">
-          <PaceCalculatorInputController
-            render={props => <PaceCalculatorView {...props} />}
-          />
-        </div>
+        <PaceCalculatorInputController
+          render={props => <PaceCalculatorView {...props} />}
+        />
 
-        <footer className="App-footer">
-          Made by <a href="https://koren.im">koren.im</a>
-        </footer>
-      </div>
+        <View>
+          <Text>Made by koren.im</Text>
+        </View>
+      </View>
     );
   }
 }
