@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
+import styles from './styles';
 
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
@@ -48,21 +49,24 @@ type Props = {
 };
 
 const Summary = ({ data }) => (
-  <View style={{ backgroundColor: '#fff8d3', padding: 15 }}>
+  <View
+    style={{
+      backgroundColor: '#fff8d3',
+      padding: 15,
+      borderColor: '#f2de7b',
+      borderWidth: 2
+    }}
+  >
     {data.map(([key, value]) => (
-      <View key={key} style={{ flexDirection: 'row' }}>
-        <View style={{ width: 120 }}>
-          <Text style={{ fontWeight: 700 }}>{key}</Text>
+      <View key={key} style={{ flexDirection: 'row', paddingVertical: 5 }}>
+        <View style={{ width: '50%' }}>
+          <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+            {key}
+          </Text>
         </View>
-        <Text>{value}</Text>
+        <Text style={[styles.text, styles.textSmall]}>{value}</Text>
       </View>
     ))}
-  </View>
-);
-
-const Badge = ({ backgroundColor, color, children }) => (
-  <View style={{ backgroundColor }}>
-    <Text style={{ color }}>{children}</Text>
   </View>
 );
 
@@ -84,53 +88,51 @@ class PaceCalculatorView extends PureComponent<Props> {
             ]
           ]}
         />
-        <View>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>
-              <Text>Lap</Text>
+        <View style={{ paddingVertical: 30 }}>
+          <View style={[styles.row, { padding: 8 }]}>
+            <View style={[{ flex: 1 }]}>
+              <Text style={[styles.text, styles.textBold]}>Lap</Text>
             </View>
-            <View style={{ flex: 1 }}>
-              <Text>Time</Text>
+            <View style={[{ flex: 1 }]}>
+              <Text style={[styles.text, styles.textBold]}>Time</Text>
             </View>
           </View>
-          <View>
-            {PREDEFINED_LAPS.map((distance, index) => {
-              const scaledSeconds = (seconds * distance) / (meters || 1);
-              return (
-                <View
-                  key={index}
-                  style={[
-                    {
-                      flexDirection: 'row'
-                    },
-                    distance === 400 && {
-                      backgroundColor: '#dd6137',
-                      color: 'white'
-                    },
-                    distance === 1000 && {
-                      backgroundColor: '#e2f7b2'
-                    }
-                  ]}
-                >
-                  <View style={{ flex: 1 }}>
-                    <Text>{withCommas(distance)} m</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text
-                      style={{ cursor: 'help' }}
-                      title={`${scaledSeconds.toFixed(2)} seconds`}
-                    >
-                      <Text style={{ color: '#ccc' }}>~ </Text>
-                      {toHHMMSS(scaledSeconds)}
-                    </Text>
-                  </View>
+          {PREDEFINED_LAPS.map((distance, index) => {
+            const scaledSeconds = (seconds * distance) / (meters || 1);
+            return (
+              <View
+                key={index}
+                style={[
+                  {
+                    flexDirection: 'row'
+                  },
+                  distance === 400 && {
+                    backgroundColor: '#ffbfad'
+                  },
+                  distance === 1000 && {
+                    backgroundColor: '#e2f7b2'
+                  },
+                  { padding: 8 }
+                ]}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.text}>{withCommas(distance)} m</Text>
                 </View>
-              );
-            })}
-          </View>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={[styles.text, { cursor: 'help' }]}
+                    title={`${scaledSeconds.toFixed(2)} seconds`}
+                  >
+                    <Text style={{ color: '#ccc' }}>~ </Text>
+                    {toHHMMSS(scaledSeconds)}
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
         </View>
 
-        <Text>
+        <Text style={[styles.paragraph, styles.text]}>
           This nifty pace calculator makes you aware of how fast you need to run
           on average to achieve your time-goals. The View shows the required
           time on each lap of different lengths to finish in the desired total
@@ -140,13 +142,11 @@ class PaceCalculatorView extends PureComponent<Props> {
           </Text>
         </Text>
 
-        <Text>
+        <Text style={[styles.paragraph, styles.text]}>
           Use this tool to go from distance and time to pace and speed. If you
-          are running on a{' '}
-          <Badge backgroundColor="#dd6137" color="white">
-            regular track
-          </Badge>, the time in the 400 m row should match your watch ⌚️ after
-          each lap to be sure you make it in time.
+          are running on a regular track , the time in the 400 m row should
+          match your watch {'⌚️'} after each lap to be sure you make it in
+          time.
         </Text>
       </View>
     );

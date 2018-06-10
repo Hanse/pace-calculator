@@ -1,23 +1,26 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import PaceCalculatorInputController from './PaceCalculatorInputController';
 import PaceCalculatorView from './PaceCalculatorView';
 
 class App extends PureComponent<{}> {
   render() {
     return (
-      <View style={{ backgroundColor: '#fff', flex: 1 }}>
-        <View>
-          <Text style={{ fontSize: 32 }}>
-            <Text role="img" aria-label="runner">
-              🏃‍♂️
-            </Text>How <Text>fast</Text> must I run?<Text
-              role="img"
-              aria-label="runner"
-            >
-              🏃🏽‍♀️
+      <ScrollView style={{ flex: 1, padding: 30, backgroundColor: '#fff' }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text
+            style={{
+              fontSize: 54,
+              fontWeight: '900',
+              color: '#a53313'
+            }}
+          >
+            Running Pace Calculator{' '}
+            <Text>
+              {'🏃🏽‍♀️'}
+              {'🏃‍♂️'}
             </Text>
           </Text>
         </View>
@@ -29,7 +32,7 @@ class App extends PureComponent<{}> {
         <View>
           <Text>Made by koren.im</Text>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -2,7 +2,8 @@
 
 import React, { PureComponent, type Node } from 'react';
 import { View, Text, Picker, TextInput } from 'react-native';
-import timestring from './timestring';
+import { parseSeconds, parseMeters } from './parsers';
+import styles from './styles';
 
 const keyMap = array =>
   array.reduce((map, item) => {
@@ -48,77 +49,6 @@ const PRESETS = keyMap([
   ['100', '10.49', 'Womens WR 100 m Florence Griffith Joyner']
 ]);
 
-const hundreds = value => {
-  if (!value) {
-    return 0;
-  }
-
-  const number = value.slice(1);
-
-  const digits = number.toString().length;
-  return parseInt(number, 10) / 10 ** digits;
-};
-
-const TIMES = [
-  [/^(\d+)(\.\d{1,3})?$/, match => parseInt(match[1], 10) + hundreds(match[2])],
-  [
-    /^(\d{1,2}):(\d{1,2})(\.\d{1,3})?$/,
-    match => {
-      return (
-        60 * parseInt(match[1], 10) +
-        parseInt(match[2], 10) +
-        hundreds(match[3])
-      );
-    }
-  ],
-  [
-    /^(\d{1,2}):(\d{1,2}):(\d{1,2})(\.\d{1,3})?$/,
-    match => {
-      return (
-        60 * 60 * parseInt(match[1], 10) +
-        60 * parseInt(match[2], 10) +
-        parseInt(match[3], 10) +
-        hundreds(match[4])
-      );
-    }
-  ],
-  [
-    /.*/,
-    match => {
-      try {
-        return timestring(match[0].replace(/,/g, '.'));
-      } catch (error) {
-        return 0;
-      }
-    }
-  ]
-];
-
-const DISTANCES = [
-  [/half[-\s]?marath?on/, 21098],
-  [/marath?on/, 42195],
-  [/10\s?km?/, 10000],
-  [/5\s?km?/, 5000],
-  [/[a|1]?\s?miles?/, 1609]
-];
-
-const parseInput = (rules, defaultEvaluator: string => number) => value => {
-  for (const [regex, parsedValue] of rules) {
-    const match = value.match(regex);
-    if (match) {
-      if (typeof parsedValue === 'function') {
-        return parsedValue(match);
-      }
-      return parsedValue;
-    }
-  }
-
-  return defaultEvaluator(value);
-};
-
-const parseSeconds = parseInput(TIMES, () => 0);
-const parseMeters = parseInput(DISTANCES, value => parseFloat(value) || 0);
-
 type Props = {
   render: ({ meters: number, seconds: number }) => Node
 };
@@ -135,6 +65,7 @@ class PaceCalculator extends PureComponent<Props, State> {
   };
 
   handlePresetSelect = (key: string) => {
+    console.log(key);
     if (!key) {
       return;
     }
@@ -152,31 +83,61 @@ class PaceCalculator extends PureComponent<Props, State> {
     return (
       <View>
         <View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text>I want to run</Text>
-            <TextInput
-              autoFocus
-              type="text"
-              name="distance"
-              placeholder="a marathon or 1500 m"
-              value={this.state.distance}
-              onChange={this.handleInput}
-            />
-            <Text>👟 in</Text>
-            <TextInput
-              type="text"
-              name="time"
-              placeholder="3:26.00 or 3 hours"
-              value={this.state.time}
-              onChange={this.handleInput}
-            />
-            <Text>⏱</Text>
+          <Text style={[styles.text, styles.textBold]}>My goal is to run</Text>
+          <View
+            style={{
+              padding: 20,
+              backgroundColor: '#fafafa',
+              borderColor: '#eee',
+              borderWidth: 2
+            }}
+          >
+            <View
+              style={[styles.row, { marginBottom: 10, alignItems: 'center' }]}
+            >
+              <TextInput
+                style={[styles.textInput, { flex: 1 }]}
+                autoFocus
+                type="text"
+                name="distance"
+                placeholder="a marathon or 1500 m"
+                value={this.state.distance}
+                onChange={this.handleInput}
+              />
+              <View style={{ width: 42 }}>
+                <Text
+                  style={[styles.text, { fontSize: 30, fontWeight: '300' }]}
+                >
+                  {'👟'}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.row, { alignItems: 'center' }]}>
+              <TextInput
+                style={[styles.textInput, { flex: 1 }]}
+                type="text"
+                name="time"
+                placeholder="in 3:26.00 or 3 hours"
+                value={this.state.time}
+                onChange={this.handleInput}
+              />
+              <View style={{ width: 42 }}>
+                <Text
+                  style={[styles.text, { fontSize: 30, fontWeight: '300' }]}
+                >
+                  {'⏱'}
+                </Text>
+              </View>
+            </View>
           </View>
 
-          <View>
-            <Text>Analyze a preset instead</Text>
-            <Picker onValueChange={this.handlePresetSelect}>
-              <Picker.Item label="" />
+          <View style={{ paddingVertical: 20 }}>
+            <Text style={styles.text}>Analyze a preset instead</Text>
+            <Picker
+              onValueChange={this.handlePresetSelect}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select a preset" value="" />
               {Object.keys(PRESETS).map(key => {
                 const [, , description] = PRESETS[key];
                 return (
