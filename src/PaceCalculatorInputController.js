@@ -78,7 +78,9 @@ class PaceCalculator extends PureComponent<Props, State> {
     return (
       <View>
         <View>
-          <Text style={[styles.text, styles.textBold]}>My goal is to run</Text>
+          <View style={{ paddingBottom: 5 }}>
+            <Text style={[styles.text, styles.textBold]}>Enter a goal</Text>
+          </View>
           <View
             style={{
               padding: 20,
@@ -87,17 +89,12 @@ class PaceCalculator extends PureComponent<Props, State> {
               borderWidth: 2
             }}
           >
-            <View
-              style={[
-                styles.row,
-                {
-                  marginBottom: 15,
-                  alignItems: 'center'
-                }
-              ]}
-            >
+            <View style={{ marginBottom: 15 }}>
+              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+                {'Distance 👟'}
+              </Text>
               <TextInput
-                style={[styles.textInput, { width: '80%', marginRight: 10 }]}
+                style={[styles.textInput]}
                 autoCapitalize="none"
                 autoFocus
                 type="text"
@@ -106,28 +103,27 @@ class PaceCalculator extends PureComponent<Props, State> {
                 value={this.state.distance}
                 onChange={this.handleInput}
               />
-              <Text style={[styles.text, { fontSize: 30, fontWeight: '300' }]}>
-                {'👟'}
-              </Text>
             </View>
-            <View style={[styles.row, { alignItems: 'center' }]}>
+            <View>
+              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+                {'Time ⏱'}
+              </Text>
               <TextInput
                 autoCapitalize="none"
-                style={[styles.textInput, { width: '80%', marginRight: 10 }]}
+                style={[styles.textInput]}
                 type="text"
                 name="time"
-                placeholder="in 3:26.00 or 3 hours"
+                placeholder="3:26.00 or 3 hours"
                 value={this.state.time}
                 onChange={this.handleInput}
               />
-              <Text style={[styles.text, { fontSize: 30, fontWeight: '300' }]}>
-                {'⏱'}
-              </Text>
             </View>
           </View>
 
           <View style={{ paddingVertical: 20 }}>
-            <Text style={styles.text}>Analyze a preset instead</Text>
+            <Text style={[styles.text, styles.textBold]}>
+              Analyze a preset instead
+            </Text>
             <Picker
               onValueChange={this.handlePresetSelect}
               style={styles.picker}

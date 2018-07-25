@@ -39,8 +39,8 @@ const toKMH = (meters, seconds) => {
   return (seconds === 0 ? 0 : (meters / seconds) * 3.6).toFixed(1) + ' km/h';
 };
 
-const withCommas = value => {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const withCommas = (value, fixed = 0) => {
+  return value.toFixed(fixed).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 type Props = {
@@ -73,9 +73,13 @@ const Summary = ({ data }) => (
 class PaceCalculatorView extends PureComponent<Props> {
   render() {
     const { meters, seconds } = this.props;
+
+    const isMissingInputs = !meters || !seconds;
     return (
       <View>
-        <View style={{ filter: !meters || !seconds ? 'blur(4px)' : undefined }}>
+        <View
+          style={[isMissingInputs && { filter: 'blur(6px)', opacity: 0.5 }]}
+        >
           <Summary
             data={[
               ['Distance', `${withCommas(meters)} m`],
@@ -108,10 +112,10 @@ class PaceCalculatorView extends PureComponent<Props> {
                       flexDirection: 'row'
                     },
                     distance === 400 && {
-                      backgroundColor: '#ffbfad'
+                      backgroundColor: '#F5DA81'
                     },
                     distance === 1000 && {
-                      backgroundColor: '#e2f7b2'
+                      backgroundColor: '#a8ddd4'
                     },
                     { padding: 8 }
                   ]}
@@ -135,20 +139,22 @@ class PaceCalculatorView extends PureComponent<Props> {
         </View>
 
         <Text style={[styles.paragraph, styles.text]}>
-          This nifty pace calculator makes you aware of how fast you need to run
-          on average to achieve your time-goals. The View shows the required
-          time on each lap of different lengths to finish in the desired total
-          time.
+          This nifty pace calculator shows how fast you need to run on average
+          to achieve your time-goals. The table shows required lap-times to
+          finish in the desired total time.
           <Text style={{ fontStyle: 'italic' }}>
             It does not show estimated equivalent race performances.
           </Text>
         </Text>
 
         <Text style={[styles.paragraph, styles.text]}>
-          Use this tool to go from distance and time to pace and speed. If you
-          are running on a regular track , the time in the 400 m row should
-          match your watch {'⌚️'} after each lap to be sure you make it in
-          time.
+          Use this tool to go figure out how fast you must run or see how
+          incredibly fast people have managed to run various distances.{' '}
+          <Text style={{ fontStyle: 'italic' }}>
+            If you are running on a regular track, the time in the 400 m row
+            should match your watch {'⌚️'} after each lap to be sure you make
+            it in time.
+          </Text>
         </Text>
       </View>
     );

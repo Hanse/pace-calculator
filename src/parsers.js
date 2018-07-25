@@ -54,12 +54,27 @@ const TIMES = [
 const DISTANCES = [
   [/half[-\s]?marath?on/i, 21098],
   [/marath?on/i, 42195],
-  [/10\s?km?/i, 10000],
-  [/5\s?km?/i, 5000],
-  [/[a|1]?\s?miles?/i, 1609]
+  [
+    /(\d+(,|.\d+)?)\s*km?/i,
+    match => {
+      return parseFloat(match[1].replace(/,/g, '.')) * 1000;
+    }
+  ],
+  [
+    /^(a|(\d+(,|.\d+)?))?\s*miles?$/i,
+    match => {
+      const multiplier =
+        match[1] === 'a' || !match[1]
+          ? 1
+          : parseFloat(match[1].replace(/,/g, '.'));
+      return 1609.34 * multiplier;
+    }
+  ]
 ];
 
-const parseInput = (rules, defaultEvaluator: string => number) => value => {
+const parseInput = (rules, defaultEvaluator: string => number) => (
+  value: string
+) => {
   for (const [regex, parsedValue] of rules) {
     const match = value.match(regex);
     if (match) {

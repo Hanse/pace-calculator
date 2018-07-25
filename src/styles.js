@@ -6,7 +6,7 @@ const baseFontSize = 20;
 
 export default StyleSheet.create({
   text: {
-    fontFamily: 'system-ui, Helvetica, sans-serif',
+    fontFamily: 'Lato, system-ui, Helvetica, sans-serif',
     fontSize: baseFontSize,
     color: '#333',
     fontWeight: '300'
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     borderColor: '#ddd',
     padding: 10,
     borderRadius: 5,
-    fontSize: baseFontSize,
+    fontSize: baseFontSize * 1.2,
     backgroundColor: '#fff'
   },
   picker: {
