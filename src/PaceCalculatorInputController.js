@@ -2,6 +2,7 @@
 
 import React, { PureComponent, type Node } from 'react';
 import { View, Text, Picker, TextInput, Platform } from 'react-native';
+import qs from 'qs';
 import { parseSeconds, parseMeters } from './parsers';
 import Card from './Card';
 import styles from './styles';
@@ -59,11 +60,23 @@ type State = {
   distance: string
 };
 
-class PaceCalculator extends PureComponent<Props, State> {
-  state = {
-    time: '',
-    distance: ''
+function getInitialState() {
+  if (Platform.OS !== 'web') {
+    return {
+      time: '',
+      distance: ''
+    };
+  }
+
+  const query = qs.parse(window.location.search.slice(1) || '');
+  return {
+    time: query.time || '',
+    distance: query.distance || ''
   };
+}
+
+class PaceCalculator extends PureComponent<Props, State> {
+  state = getInitialState();
 
   handlePresetSelect = (key: string) => {
     const [distance, time] = key ? PRESETS[key] : ['', ''];
@@ -74,6 +87,19 @@ class PaceCalculator extends PureComponent<Props, State> {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      (Platform.OS === 'web' && this.state.time !== prevState.time) ||
+      this.state.distance !== prevState.distance
+    ) {
+      global.history.pushState(
+        null,
+        null,
+        `?time=${this.state.time}&distance=${this.state.distance}`
+      );
+    }
+  }
 
   render() {
     return (
