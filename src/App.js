@@ -5,13 +5,19 @@ import { View, Text, ScrollView } from 'react-native';
 import PaceCalculatorInputController from './PaceCalculatorInputController';
 import PaceCalculatorView from './PaceCalculatorView';
 
-const PADDING = 20;
+const PADDING = 25;
 
 class App extends PureComponent<{}> {
   render() {
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={{ backgroundColor: '#F6DF8C', padding: PADDING }}>
+      <ScrollView style={{ flex: 1, backgroundColor: 'transparent' }}>
+        <View
+          style={{
+            backgroundColor: '#F6DF8C',
+            paddingHorizontal: PADDING,
+            paddingVertical: PADDING / 2
+          }}
+        >
           <Text
             style={{
               fontSize: 40,

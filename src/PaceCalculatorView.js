@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
 import styles from './styles';
+import Card from './Card';
 
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
@@ -75,8 +76,9 @@ class PaceCalculatorView extends PureComponent<Props> {
     const { meters, seconds } = this.props;
 
     const isMissingInputs = !meters || !seconds;
+
     return (
-      <View>
+      <Card>
         <View
           style={[isMissingInputs && { filter: 'blur(6px)', opacity: 0.5 }]}
         >
@@ -111,6 +113,9 @@ class PaceCalculatorView extends PureComponent<Props> {
                     {
                       flexDirection: 'row'
                     },
+                    index % 2 === 0 && {
+                      backgroundColor: '#f3f3f3'
+                    },
                     distance === 400 && {
                       backgroundColor: '#F5DA81'
                     },
@@ -138,7 +143,7 @@ class PaceCalculatorView extends PureComponent<Props> {
           </View>
         </View>
 
-        <Text style={[styles.paragraph, styles.text]}>
+        <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
           This nifty pace calculator shows how fast you need to run on average
           to achieve your time-goals. The table shows required lap-times to
           finish in the desired total time.
@@ -147,7 +152,7 @@ class PaceCalculatorView extends PureComponent<Props> {
           </Text>
         </Text>
 
-        <Text style={[styles.paragraph, styles.text]}>
+        <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
           Use this tool to go figure out how fast you must run or see how
           incredibly fast people have managed to run various distances.{' '}
           <Text style={{ fontStyle: 'italic' }}>
@@ -156,7 +161,7 @@ class PaceCalculatorView extends PureComponent<Props> {
             it in time.
           </Text>
         </Text>
-      </View>
+      </Card>
     );
   }
 }

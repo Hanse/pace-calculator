@@ -1,8 +1,9 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
-import { View, Text, Picker, TextInput } from 'react-native';
+import { View, Text, Picker, TextInput, Platform } from 'react-native';
 import { parseSeconds, parseMeters } from './parsers';
+import Card from './Card';
 import styles from './styles';
 
 const keyMap = array =>
@@ -77,18 +78,11 @@ class PaceCalculator extends PureComponent<Props, State> {
   render() {
     return (
       <View>
-        <View>
-          <View style={{ paddingBottom: 5 }}>
+        <View style={{ marginBottom: 30 }}>
+          <View style={{ paddingVertical: 10 }}>
             <Text style={[styles.text, styles.textBold]}>Enter a goal</Text>
           </View>
-          <View
-            style={{
-              padding: 20,
-              backgroundColor: '#fafafa',
-              borderColor: '#eee',
-              borderWidth: 2
-            }}
-          >
+          <Card>
             <View style={{ marginBottom: 15 }}>
               <Text style={[styles.text, styles.textSmall, styles.textBold]}>
                 {'Distance 👟'}
@@ -118,12 +112,12 @@ class PaceCalculator extends PureComponent<Props, State> {
                 onChange={this.handleInput}
               />
             </View>
-          </View>
 
-          <View style={{ paddingVertical: 20 }}>
-            <Text style={[styles.text, styles.textBold]}>
-              Analyze a preset instead
-            </Text>
+            <View style={{ paddingTop: 40 }}>
+              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+                Or you can select a preset
+              </Text>
+            </View>
             <Picker
               onValueChange={this.handlePresetSelect}
               style={styles.picker}
@@ -136,7 +130,11 @@ class PaceCalculator extends PureComponent<Props, State> {
                 );
               })}
             </Picker>
-          </View>
+          </Card>
+        </View>
+
+        <View style={{ paddingVertical: 10 }}>
+          <Text style={[styles.text, styles.textBold]}>Timing data</Text>
         </View>
         {this.props.render({
           meters: parseMeters(this.state.distance),
