@@ -37,7 +37,7 @@ const PRESETS = keyMap([
   ],
   ['10000', '29:17.45', 'Womens WR 10,000 m Almaz Ayana'],
   ['5000', '14:11.15', 'Womens WR 5000 m Tirunesh Dibaba'],
-  ['3000', '8:52.78', 'Womens WR 3000 m steeplechase Ruth Jebet'],
+  ['3000', '8:44.32', 'Womens WR 3000 m steeplechase Beatrice Chepkoech'],
   ['3000', '8:06.11', 'Womens WR 3000 m Wang Junxia'],
   ['mile', '4:12.56', 'Womens WR Mile Svetlana Masterkova'],
   ['1500', '3:50.07', 'Womens WR 1500 m Genzebe Dibaba'],
