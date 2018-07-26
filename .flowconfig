@@ -7,6 +7,6 @@
 [lints]
 
 [options]
-module.name_mapper='(react-native)' -> 'react-native-web'
+module.name_mapper='^react-native$' -> '<PROJECT_ROOT>/node_modules/react-native-web'
 
 [strict]
