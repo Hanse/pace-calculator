@@ -1,10 +1,10 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import PaceCalculatorInputController from './PaceCalculatorInputController';
 import PaceCalculatorView from './PaceCalculatorView';
-import styles from './styles';
+import globalStyles from './styles';
 
 const PADDING = 25;
 
@@ -20,22 +20,8 @@ class App extends PureComponent<{}> {
   render() {
     return (
       <ScrollView style={{ flex: 1, backgroundColor: 'transparent' }}>
-        <View
-          style={{
-            backgroundColor: '#F6DF8C',
-            paddingHorizontal: PADDING,
-            paddingVertical: PADDING / 2
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 40,
-              fontWeight: '700',
-              color: '#63958D'
-            }}
-          >
-            Pace Calculator
-          </Text>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Pace Calculator</Text>
         </View>
 
         <View style={{ padding: PADDING, paddingBottom: 0 }}>
@@ -47,7 +33,7 @@ class App extends PureComponent<{}> {
         </View>
 
         <View style={{ paddingHorizontal: 40, paddingVertical: 20 }}>
-          <Text style={[styles.text, styles.textSmall]}>
+          <Text style={[globalStyles.text, globalStyles.textSmall]}>
             Feedback can be sent to{' '}
             <ExternalLink href="mailto:feedback@koren.im">
               feedback@koren.im
@@ -61,5 +47,18 @@ class App extends PureComponent<{}> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#F6DF8C',
+    paddingHorizontal: PADDING,
+    paddingVertical: PADDING / 2
+  },
+  headerText: {
+    fontSize: 40,
+    fontWeight: '700',
+    color: '#63958D'
+  }
+});
 
 export default App;

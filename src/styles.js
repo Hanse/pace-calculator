@@ -48,5 +48,11 @@ export default StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid'
+  },
+  summary: {
+    backgroundColor: '#fff8d3',
+    padding: 15,
+    borderColor: '#f2de7b',
+    borderWidth: 2
   }
 });

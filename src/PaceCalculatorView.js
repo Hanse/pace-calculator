@@ -50,14 +50,7 @@ type Props = {
 };
 
 const Summary = ({ data }) => (
-  <View
-    style={{
-      backgroundColor: '#fff8d3',
-      padding: 15,
-      borderColor: '#f2de7b',
-      borderWidth: 2
-    }}
-  >
+  <View style={styles.summary}>
     {data.map(([key, value]) => (
       <View key={key} style={{ flexDirection: 'row', paddingVertical: 5 }}>
         <View style={{ width: '50%' }}>
