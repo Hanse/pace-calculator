@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
-import { getPace, withCommas } from './formatting';
+import { getPace, withCommas, toHHMMSS } from './formatting';
 import styles from './styles';
 
 type Props = {
@@ -42,7 +42,8 @@ class SplitCalculator extends PureComponent<Props> {
         <View style={{ flex: 1, padding: 10 }}>
           <Text style={[styles.text, styles.textBold, { paddingBottom: 6 }]}>
             <Text style={{ color: '#999' }}>1st</Text>{' '}
-            {withCommas(this.props.meters / 2)} m
+            {withCommas(this.props.meters / 2)} m,{' '}
+            {toHHMMSS(firstSeconds, 'normal')}
           </Text>
           <Text style={styles.text}>
             {getPace(this.props.meters / 2, this.props.value)}
@@ -60,7 +61,8 @@ class SplitCalculator extends PureComponent<Props> {
         <View style={{ flex: 1, padding: 10 }}>
           <Text style={[styles.text, styles.textBold, { paddingBottom: 6 }]}>
             <Text style={{ color: '#999' }}>2nd</Text>{' '}
-            {withCommas(this.props.meters / 2)} m
+            {withCommas(this.props.meters / 2)} m,{' '}
+            {toHHMMSS(lastSeconds, 'normal')}
           </Text>
           <Text style={styles.text}>
             {getPace(this.props.meters / 2, lastSeconds)}
