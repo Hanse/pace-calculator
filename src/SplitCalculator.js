@@ -15,7 +15,7 @@ type Props = {
 class SplitCalculator extends PureComponent<Props> {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 15 }}>
+      <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, padding: 10 }}>
           <Text style={[styles.text, styles.textBold, { paddingBottom: 6 }]}>
             <Text style={{ color: '#999' }}>1st</Text>{' '}

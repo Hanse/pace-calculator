@@ -186,18 +186,27 @@ class PaceCalculator extends PureComponent<Props, State> {
                 );
               })}
             </Picker>
+          </Card>
+        </View>
 
-            <View style={{ paddingTop: 40 }}>
-              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
-                Splits
-              </Text>
+        <View style={{ marginBottom: 30 }}>
+          <View style={{ paddingVertical: 10 }}>
+            <Text style={[styles.text, styles.textBold]}>Splits</Text>
+          </View>
+
+          <Card>
+            <View
+              style={[
+                (!meters || !seconds) && { filter: 'blur(6px)', opacity: 0.5 }
+              ]}
+            >
+              <SplitCalculator
+                meters={meters}
+                seconds={seconds}
+                value={splitValue}
+                onChange={this.handleSplitChange}
+              />
             </View>
-            <SplitCalculator
-              meters={meters}
-              seconds={seconds}
-              value={splitValue}
-              onChange={this.handleSplitChange}
-            />
           </Card>
         </View>
 
