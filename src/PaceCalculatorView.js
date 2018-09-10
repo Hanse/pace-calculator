@@ -4,45 +4,9 @@ import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
 import styles from './styles';
 import Card from './Card';
+import { toHHMMSS, getPace, withCommas } from './formatting';
 
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
-
-type ToHHMMSSMode = 'units' | 'normal' | null;
-type Seconds = number;
-
-export const toHHMMSS = (
-  time: Seconds,
-  mode: ToHHMMSSMode = 'units',
-  digits: number = 0
-) => {
-  const hours = Math.floor(time / 3600);
-  const minutes = Math.floor((time - hours * 3600) / 60);
-  const seconds = time - hours * 3600 - minutes * 60;
-
-  const parts = [
-    [hours, 'hours'],
-    [minutes, 'min'],
-    [seconds.toFixed(digits), 'sec']
-  ];
-
-  if (!hours) {
-    parts.shift();
-  }
-
-  if (mode === 'units') {
-    return parts.map(([value, unit]) => `${value} ${unit}`).join(' ');
-  }
-
-  return parts.map(([value]) => (+value < 10 ? `0${value}` : value)).join(':');
-};
-
-const toKMH = (meters, seconds) => {
-  return (seconds === 0 ? 0 : (meters / seconds) * 3.6).toFixed(1) + ' km/h';
-};
-
-const withCommas = (value, fixed = 0) => {
-  return value.toFixed(fixed).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
 
 type Props = {
   meters: number,
@@ -79,13 +43,7 @@ class PaceCalculatorView extends PureComponent<Props> {
             data={[
               ['Distance', `${withCommas(meters)} m`],
               ['Time', toHHMMSS(seconds, 'normal', 2)],
-              [
-                'Required pace',
-                `${toHHMMSS(
-                  (seconds * 1000) / (meters || 1),
-                  'normal'
-                )} min/km (${toKMH(meters, seconds)})`
-              ]
+              ['Required pace', getPace(meters, seconds)]
             ]}
           />
           <View style={{ paddingVertical: 30 }}>

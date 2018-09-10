@@ -3,8 +3,10 @@
 import React, { PureComponent, type Node } from 'react';
 import { View, Text, Picker, TextInput, Platform } from 'react-native';
 import qs from 'qs';
+import debounce from 'debounce';
 import { parseSeconds, parseMeters } from './parsers';
 import Card from './Card';
+import SplitCalculator from './SplitCalculator';
 import styles from './styles';
 import PRESETS from './presets';
 
@@ -14,21 +16,24 @@ type Props = {
 
 type State = {
   time: string,
-  distance: string
+  distance: string,
+  splitValue: string
 };
 
 function getInitialState() {
   if (Platform.OS !== 'web') {
     return {
       time: '',
-      distance: ''
+      distance: '',
+      splitValue: ''
     };
   }
 
   const query = qs.parse(window.location.search.slice(1) || '');
   return {
     time: query.time || '',
-    distance: query.distance || ''
+    distance: query.distance || '',
+    splitValue: query.splitValue || ''
   };
 }
 
@@ -45,21 +50,35 @@ class PaceCalculator extends PureComponent<Props, State> {
     this.setState({ [name]: value });
   };
 
+  handleSplitChange = (e: any) => {
+    this.setState({ splitValue: e.target.value });
+  };
+
+  updateQueryParams = debounce(() => {
+    global.history.pushState(
+      null,
+      null,
+      `?time=${this.state.time}&distance=${this.state.distance}&splitValue=${
+        this.state.splitValue
+      }`
+    );
+  }, 300);
+
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (
       Platform.OS === 'web' &&
       (this.state.time !== prevState.time ||
-        this.state.distance !== prevState.distance)
+        this.state.distance !== prevState.distance ||
+        this.state.splitValue !== prevState.splitValue)
     ) {
-      global.history.pushState(
-        null,
-        null,
-        `?time=${this.state.time}&distance=${this.state.distance}`
-      );
+      this.updateQueryParams();
     }
   }
 
   render() {
+    const meters = parseMeters(this.state.distance);
+    const seconds = parseSeconds(this.state.time);
+
     return (
       <View>
         <View style={{ marginBottom: 30 }}>
@@ -114,6 +133,13 @@ class PaceCalculator extends PureComponent<Props, State> {
                 );
               })}
             </Picker>
+
+            <SplitCalculator
+              meters={meters}
+              seconds={seconds}
+              value={parseFloat(this.state.splitValue)}
+              onChange={this.handleSplitChange}
+            />
           </Card>
         </View>
 
@@ -122,8 +148,8 @@ class PaceCalculator extends PureComponent<Props, State> {
         </View>
 
         {this.props.render({
-          meters: parseMeters(this.state.distance),
-          seconds: parseSeconds(this.state.time)
+          meters,
+          seconds
         })}
       </View>
     );

@@ -1,6 +1,6 @@
 // @flow
 
-import { toHHMMSS } from '../PaceCalculatorView';
+import { toHHMMSS } from '../formatting';
 
 it('should convert to "digital" string', () => {
   expect(toHHMMSS(3 * 3600 + 30 * 60, 'normal')).toEqual('03:30:00');
