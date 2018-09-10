@@ -189,7 +189,10 @@ class PaceCalculator extends PureComponent<Props, State> {
           </Card>
         </View>
 
-        <View style={{ marginBottom: 30 }}>
+        <View
+          style={{ marginBottom: 30 }}
+          className="very-hacky-rn-media-query-hook-display-none"
+        >
           <View style={{ paddingVertical: 10 }}>
             <Text style={[styles.text, styles.textBold]}>Splits</Text>
           </View>

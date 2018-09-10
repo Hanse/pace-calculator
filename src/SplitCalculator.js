@@ -12,10 +12,33 @@ type Props = {
   value: number
 };
 
+function getColor(value) {
+  return value < 0 ? 'rgba(0, 255, 0, 0.3)' : 'rgba(255, 0, 0, 0.3)';
+}
+
 class SplitCalculator extends PureComponent<Props> {
   render() {
+    const firstSeconds = this.props.value;
+    const lastSeconds = this.props.seconds - this.props.value;
+
+    const diff = lastSeconds - firstSeconds;
+
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View
+        style={{
+          flexDirection: 'row'
+        }}
+      >
+        <View
+          style={{
+            position: 'absolute',
+            right: 0,
+            width: 24,
+            height: 24,
+            borderRadius: 12,
+            backgroundColor: getColor(diff / this.props.seconds)
+          }}
+        />
         <View style={{ flex: 1, padding: 10 }}>
           <Text style={[styles.text, styles.textBold, { paddingBottom: 6 }]}>
             <Text style={{ color: '#999' }}>1st</Text>{' '}
@@ -40,15 +63,12 @@ class SplitCalculator extends PureComponent<Props> {
             {withCommas(this.props.meters / 2)} m
           </Text>
           <Text style={styles.text}>
-            {getPace(
-              this.props.meters / 2,
-              this.props.seconds - this.props.value
-            )}
+            {getPace(this.props.meters / 2, lastSeconds)}
           </Text>
           <View style={{ paddingVertical: 10 }}>
             <input
               type="range"
-              value={this.props.seconds - this.props.value}
+              value={lastSeconds}
               min={0}
               disabled
               max={this.props.seconds}
