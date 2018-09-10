@@ -37,21 +37,73 @@ function getInitialState() {
   };
 }
 
+const update = (action: Object) => state => {
+  switch (action.type) {
+    case 'PRESET_SELECTED': {
+      const { preset: key } = action;
+      const [distance, time] = key ? PRESETS[key] : ['', ''];
+
+      return {
+        ...state,
+        time,
+        distance,
+        splitValue: `${parseSeconds(time) / 2}`
+      };
+    }
+
+    case 'DISTANCE_CHANGED':
+      return {
+        ...state,
+        distance: action.value,
+        splitValue: `${parseSeconds(state.time) / 2}`
+      };
+
+    case 'TIME_CHANGED':
+      return {
+        ...state,
+        time: action.value,
+        splitValue: `${parseSeconds(action.value) / 2}`
+      };
+
+    case 'SPLIT_CHANGED':
+      return {
+        ...state,
+        splitValue: action.value
+      };
+
+    default:
+      return state;
+  }
+};
+
 class PaceCalculator extends PureComponent<Props, State> {
   state = getInitialState();
 
   handlePresetSelect = (key: string) => {
-    const [distance, time] = key ? PRESETS[key] : ['', ''];
-    this.setState({ time, distance });
+    this.setState(
+      update({
+        type: 'PRESET_SELECTED',
+        preset: key
+      })
+    );
   };
 
-  handleInput = (e: SyntheticInputEvent<*>) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  handleInput = (type: string) => (e: SyntheticInputEvent<*>) => {
+    this.setState(
+      update({
+        type,
+        value: e.target.value
+      })
+    );
   };
 
   handleSplitChange = (e: any) => {
-    this.setState({ splitValue: e.target.value });
+    this.setState(
+      update({
+        type: 'SPLIT_CHANGED',
+        value: e.target.value
+      })
+    );
   };
 
   updateQueryParams = debounce(() => {
@@ -78,6 +130,7 @@ class PaceCalculator extends PureComponent<Props, State> {
   render() {
     const meters = parseMeters(this.state.distance);
     const seconds = parseSeconds(this.state.time);
+    const splitValue = parseSeconds(this.state.splitValue);
 
     return (
       <View>
@@ -98,7 +151,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                 name="distance"
                 placeholder="a marathon or 1500 m"
                 value={this.state.distance}
-                onChange={this.handleInput}
+                onChange={this.handleInput('DISTANCE_CHANGED')}
               />
             </View>
             <View>
@@ -112,7 +165,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                 name="time"
                 placeholder="3:26.00 or 3 hours"
                 value={this.state.time}
-                onChange={this.handleInput}
+                onChange={this.handleInput('TIME_CHANGED')}
               />
             </View>
 
@@ -134,10 +187,15 @@ class PaceCalculator extends PureComponent<Props, State> {
               })}
             </Picker>
 
+            <View style={{ paddingTop: 40 }}>
+              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+                Splits
+              </Text>
+            </View>
             <SplitCalculator
               meters={meters}
               seconds={seconds}
-              value={parseFloat(this.state.splitValue)}
+              value={splitValue}
               onChange={this.handleSplitChange}
             />
           </Card>
