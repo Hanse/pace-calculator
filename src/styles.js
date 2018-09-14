@@ -2,15 +2,14 @@
 
 import { StyleSheet } from 'react-native';
 
-const baseFontSize = 22;
+const baseFontSize = 20;
 
 export default StyleSheet.create({
   text: {
     fontFamily: 'system-ui, Helvetica, sans-serif',
     fontSize: baseFontSize,
     color: '#333',
-    fontWeight: '400',
-    webkitFontSmoothing: 'antialiased'
+    fontWeight: '400'
   },
   textSmall: {
     fontSize: baseFontSize * 0.9
@@ -52,7 +51,6 @@ export default StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
-    fontSize: baseFontSize * 0.9,
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
   },
   summary: {
@@ -60,5 +58,15 @@ export default StyleSheet.create({
     padding: 15,
     borderColor: '#f2de7b',
     borderWidth: 2
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    borderColor: '#ddd',
+    borderWidth: 1,
+    padding: 5,
+    margin: 5,
+    borderRadius: 5,
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
   }
 });

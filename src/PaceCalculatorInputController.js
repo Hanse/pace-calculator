@@ -10,10 +10,11 @@ import SplitCalculator from './SplitCalculator';
 import styles from './styles';
 import PRESETS from './presets';
 
-const Label = ({ children }) => (
+const Label = ({ children, ...props }) => (
   <Text
     accessibilityRole="label"
     style={[styles.text, styles.textSmall, { color: '#999' }]}
+    {...props}
   >
     {children}
   </Text>
@@ -179,7 +180,9 @@ class PaceCalculator extends PureComponent<Props, State> {
             </View>
 
             <View style={{ paddingTop: 40 }}>
-              <Label>Or you can select from our presets</Label>
+              <Label numberOfLines={1}>
+                Or you can select from our presets
+              </Label>
             </View>
             <Picker
               onValueChange={this.handlePresetSelect}
@@ -196,10 +199,7 @@ class PaceCalculator extends PureComponent<Props, State> {
           </Card>
         </View>
 
-        <View
-          style={{ marginBottom: 30 }}
-          className="very-hacky-rn-media-query-hook-display-none"
-        >
+        <View style={{ marginBottom: 30 }}>
           <View style={{ paddingVertical: 10 }}>
             <Text style={[styles.text, styles.textBold]}>Splits</Text>
           </View>
