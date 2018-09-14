@@ -2,14 +2,15 @@
 
 import { StyleSheet } from 'react-native';
 
-const baseFontSize = 20;
+const baseFontSize = 22;
 
 export default StyleSheet.create({
   text: {
-    fontFamily: 'Lato, system-ui, Helvetica, sans-serif',
+    fontFamily: 'system-ui, Helvetica, sans-serif',
     fontSize: baseFontSize,
     color: '#333',
-    fontWeight: '300'
+    fontWeight: '400',
+    webkitFontSmoothing: 'antialiased'
   },
   textSmall: {
     fontSize: baseFontSize * 0.9
@@ -18,7 +19,7 @@ export default StyleSheet.create({
     fontSize: baseFontSize * 1.3
   },
   textBold: {
-    fontWeight: '700'
+    fontWeight: '500'
   },
   paragraph: {
     marginBottom: 10,
@@ -34,20 +35,25 @@ export default StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
     borderColor: '#ddd',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     padding: 10,
     borderRadius: 5,
     fontSize: baseFontSize * 1.2,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    color: '#444',
+    marginVertical: 5
   },
   picker: {
-    marginVertical: 10,
+    marginVertical: 5,
     height: 42,
     backgroundColor: 'white',
     borderRadius: 5,
     padding: 10,
     borderColor: '#ddd',
     borderWidth: StyleSheet.hairlineWidth,
-    borderStyle: 'solid'
+    borderStyle: 'solid',
+    fontSize: baseFontSize * 0.9,
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
   },
   summary: {
     backgroundColor: '#fff8d3',

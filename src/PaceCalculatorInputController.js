@@ -10,6 +10,15 @@ import SplitCalculator from './SplitCalculator';
 import styles from './styles';
 import PRESETS from './presets';
 
+const Label = ({ children }) => (
+  <Text
+    accessibilityRole="label"
+    style={[styles.text, styles.textSmall, { color: '#999' }]}
+  >
+    {children}
+  </Text>
+);
+
 type Props = {
   render: ({ meters: number, seconds: number }) => Node
 };
@@ -139,10 +148,12 @@ class PaceCalculator extends PureComponent<Props, State> {
             <Text style={[styles.text, styles.textBold]}>Enter a goal</Text>
           </View>
           <Card>
-            <View style={{ marginBottom: 15 }}>
-              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
-                {'Distance 👟'}
-              </Text>
+            <View
+              style={{ marginBottom: 15 }}
+              accessible
+              accessibilityLabel="Distance"
+            >
+              <Label>{'Distance 👟'}</Label>
               <TextInput
                 style={[styles.textInput]}
                 autoCapitalize="none"
@@ -154,10 +165,8 @@ class PaceCalculator extends PureComponent<Props, State> {
                 onChange={this.handleInput('DISTANCE_CHANGED')}
               />
             </View>
-            <View>
-              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
-                {'Time ⏱'}
-              </Text>
+            <View accessible accessibilityLabel="Time">
+              <Label>{'Time ⏱'}</Label>
               <TextInput
                 autoCapitalize="none"
                 style={[styles.textInput]}
@@ -170,9 +179,7 @@ class PaceCalculator extends PureComponent<Props, State> {
             </View>
 
             <View style={{ paddingTop: 40 }}>
-              <Text style={[styles.text, styles.textSmall, styles.textBold]}>
-                Or you can select from our presets
-              </Text>
+              <Label>Or you can select from our presets</Label>
             </View>
             <Picker
               onValueChange={this.handlePresetSelect}
