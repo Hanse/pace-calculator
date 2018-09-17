@@ -9,7 +9,7 @@ const keyMap = array =>
 export default keyMap([
   // Men
   ['marathon', '2:00:25', 'Mens Marathon Breaking2 Eliud Kipchoge'],
-  ['marathon', '2:02:57', 'Mens WR Marathon Dennis Kipruto Kimetto'],
+  ['marathon', '2:01:39', 'Mens WR Marathon Eliud Kipchoge'],
   ['half-marathon', '58:23', 'Mens WR Half marathon Zersenay Tadese'],
   ['10000', '26:17.53', 'Mens WR 10,000 m Kenenisa Bekele'],
   ['5000', '12:37.35', 'Mens WR 5000 m Kenenisa Bekele'],

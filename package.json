@@ -28,6 +28,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "prettier": {
+    "printWidth": 80,
+    "parser": "flow",
+    "singleQuote": true,
+    "bracketSpacing": true
+  },
   "devDependencies": {
     "cypress": "^3.0.1"
   }
