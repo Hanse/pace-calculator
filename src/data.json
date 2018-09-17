@@ -1,0 +1,266 @@
+{
+  "updatedAt": "2018-09-17T08:21:28.848Z",
+  "presets": [
+    {
+      "id": "1",
+      "event": "Mens Marathon Breaking2",
+      "distance": "marathon",
+      "time": "2:00:25",
+      "name": "Eliud Kipchoge",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "2",
+      "event": "Mens WR Marathon",
+      "distance": "marathon",
+      "time": "2:01:39",
+      "name": "Eliud Kipchoge",
+      "date": null,
+      "halfSplit": "61:06"
+    },
+    {
+      "id": "3",
+      "event": "Mens WR Half marathon",
+      "distance": "half-marathon",
+      "time": "58:23",
+      "name": "Zersenay Tadese",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "4",
+      "event": "Mens WR 10,000 m",
+      "distance": "10000",
+      "time": "26:17.53",
+      "name": "Kenenisa Bekele",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "5",
+      "event": "Mens WR 5000 m",
+      "distance": "5000",
+      "time": "12:37.35",
+      "name": "Kenenisa Bekele",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "6",
+      "event": "Mens WR 3000 m steeplechase",
+      "distance": "3000",
+      "time": "7:53.63",
+      "name": "Saif Saaeed Shaheen",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "7",
+      "event": "Mens WR 3000 m",
+      "distance": "3000",
+      "time": "7:20.67",
+      "name": "Daniel Komen",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "8",
+      "event": "Mens WR Mile",
+      "distance": "mile",
+      "time": "3:43.13",
+      "name": "Hicham El Guerrouj",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "9",
+      "event": "Mens WR 1500 m",
+      "distance": "1500",
+      "time": "3:26.00",
+      "name": "Hicham El Guerrouj",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "10",
+      "event": "Mens WR 800 m",
+      "distance": "800",
+      "time": "1:40.91",
+      "name": "David Rudisha",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "11",
+      "event": "Mens WR 400 m hurdles",
+      "distance": "400",
+      "time": "46.78",
+      "name": "Kevin Young",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "12",
+      "event": "Mens WR 400 m",
+      "distance": "400",
+      "time": "43.03",
+      "name": "Wayde van Niekerk",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "13",
+      "event": "Mens WR 200 m",
+      "distance": "200",
+      "time": "19.19",
+      "name": "Usain Bolt",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "14",
+      "event": "Mens WR 110 m hurdles",
+      "distance": "110",
+      "time": "12.80",
+      "name": "Aries Meritt",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "15",
+      "event": "Mens WR 100 m",
+      "distance": "100",
+      "time": "9.58",
+      "name": "Usain Bolt",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "16",
+      "event": "Womens WR Marathon (Mx)",
+      "distance": "marathon",
+      "time": "2:15:25",
+      "name": "Paula Radcliffe",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "17",
+      "event": "Womens WR Half marathon (Mx)",
+      "distance": "half-marathon",
+      "time": "1:04:51",
+      "name": "Joyciline Jepkosgei",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "18",
+      "event": "Womens WR 10,000 m",
+      "distance": "10000",
+      "time": "29:17.45",
+      "name": "Almaz Ayana",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "19",
+      "event": "Womens WR 5000 m",
+      "distance": "5000",
+      "time": "14:11.15",
+      "name": "Tirunesh Dibaba",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "20",
+      "event": "Womens WR 3000 m steeplechase",
+      "distance": "3000",
+      "time": "8:44.32",
+      "name": "Beatrice Chepkoech",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "21",
+      "event": "Womens WR 3000 m",
+      "distance": "3000",
+      "time": "8:06.11",
+      "name": "Wang Junxia",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "22",
+      "event": "Womens WR Mile",
+      "distance": "mile",
+      "time": "4:12.56",
+      "name": "Svetlana Masterkova",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "23",
+      "event": "Womens WR 1500 m",
+      "distance": "1500",
+      "time": "3:50.07",
+      "name": "Genzebe Dibaba",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "24",
+      "event": "Womens WR 800 m",
+      "distance": "800",
+      "time": "1:53.28",
+      "name": "Jarmila Kratochvílová",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "25",
+      "event": "Womens WR 400 m hurdles",
+      "distance": "400",
+      "time": "42.34",
+      "name": "Yuliya Pechonkina",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "26",
+      "event": "Womens WR 400 m",
+      "distance": "400",
+      "time": "47.60",
+      "name": "Marita Koch",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "27",
+      "event": "Womens WR 200 m",
+      "distance": "200",
+      "time": "21.34",
+      "name": "Florence Griffith Joyner",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "28",
+      "event": "Womens WR 100 m hurdles",
+      "distance": "100",
+      "time": "12.20",
+      "name": "Kendra Harrison",
+      "date": null,
+      "halfSplit": null
+    },
+    {
+      "id": "29",
+      "event": "Womens WR 100 m",
+      "distance": "100",
+      "time": "10.49",
+      "name": "Florence Griffith Joyner",
+      "date": null,
+      "halfSplit": null
+    }
+  ]
+}

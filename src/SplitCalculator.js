@@ -57,7 +57,7 @@ type Props = {
 };
 
 function getColor(value) {
-  return value < 0 ? 'rgba(0, 255, 0, 0.3)' : 'rgba(255, 0, 0, 0.3)';
+  return value <= 0 ? 'rgba(0, 255, 0, 0.3)' : 'rgba(255, 0, 0, 0.3)';
 }
 
 class SplitCalculator extends PureComponent<Props> {

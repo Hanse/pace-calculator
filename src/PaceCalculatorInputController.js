@@ -8,7 +8,7 @@ import { parseSeconds, parseMeters } from './parsers';
 import Card from './Card';
 import SplitCalculator from './SplitCalculator';
 import styles from './styles';
-import PRESETS from './presets';
+import PRESETS from './data.json';
 
 const Label = ({ children, ...props }) => (
   <Text
@@ -50,14 +50,16 @@ function getInitialState() {
 const update = (action: Object) => state => {
   switch (action.type) {
     case 'PRESET_SELECTED': {
-      const { preset: key } = action;
-      const [distance, time] = key ? PRESETS[key] : ['', ''];
+      const key = action.preset;
+      const preset = PRESETS.presets.find(preset => preset.id === key);
+
+      const splitValue = preset.halfSplit || `${parseSeconds(preset.time) / 2}`;
 
       return {
         ...state,
-        time,
-        distance,
-        splitValue: `${parseSeconds(time) / 2}`
+        time: preset.time,
+        distance: preset.distance,
+        splitValue
       };
     }
 
@@ -189,10 +191,14 @@ class PaceCalculator extends PureComponent<Props, State> {
               style={styles.picker}
             >
               <Picker.Item label="Select a preset" value="" />
-              {Object.keys(PRESETS).map(key => {
-                const [, , description] = PRESETS[key];
+              {PRESETS.presets.map(preset => {
+                const description = `${preset.event} ${preset.name}`;
                 return (
-                  <Picker.Item key={key} label={description} value={key} />
+                  <Picker.Item
+                    key={preset.id}
+                    label={description}
+                    value={preset.id}
+                  />
                 );
               })}
             </Picker>
@@ -232,5 +238,4 @@ class PaceCalculator extends PureComponent<Props, State> {
     );
   }
 }
-
 export default PaceCalculator;
