@@ -1,37 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="The most user-friendly pace calculator for running. Convert time and distance to pace and speed.">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="The most user-friendly pace calculator for running. Convert time and distance to pace and speed."
+    />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta name="twitter:card" content="summary" />
-      <meta
-        name="twitter:site"
-        content="@Hanse"
-      />
-      <meta name="twitter:title" content="Running Pace Calculator" />
-      <meta name="twitter:description" content="Figure out how fast you must run to reach your time goals."/>
-      <meta
-        name="twitter:image"
-        content="%PUBLIC_URL%/favicon-196x196.png"
-      />
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="%PUBLIC_URL%/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="%PUBLIC_URL%/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="%PUBLIC_URL%/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="%PUBLIC_URL%/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="%PUBLIC_URL%/apple-touch-icon-60x60.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="%PUBLIC_URL%/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="%PUBLIC_URL%/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="%PUBLIC_URL%/apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-196x196.png" sizes="196x196" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-16x16.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-128.png" sizes="128x128" />
+    <meta name="twitter:site" content="@Hanse" />
+    <meta name="twitter:title" content="Running Pace Calculator" />
+    <meta
+      name="twitter:description"
+      content="Figure out how fast you must run to reach your time goals."
+    />
+    <meta name="twitter:image" content="%PUBLIC_URL%/favicon-196x196.png" />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="57x57"
+      href="%PUBLIC_URL%/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="%PUBLIC_URL%/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="%PUBLIC_URL%/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="%PUBLIC_URL%/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="60x60"
+      href="%PUBLIC_URL%/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="120x120"
+      href="%PUBLIC_URL%/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="76x76"
+      href="%PUBLIC_URL%/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="%PUBLIC_URL%/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon-196x196.png"
+      sizes="196x196"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon-128.png"
+      sizes="128x128"
+    />
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script async src="https://platform.koren.im/widget.js"></script>
     <title>Running Pace Calculator | koren.im</title>
 
     <style>
@@ -64,20 +125,21 @@
     </style>
   </head>
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
 
-<div id="root"></div>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-17229082-9"></script>
+    <div id="root"></div>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-17229082-9"
+    ></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-gtag('config', 'UA-17229082-9');
-</script>
+      gtag('config', 'UA-17229082-9');
+    </script>
   </body>
 </html>
