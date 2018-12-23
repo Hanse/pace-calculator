@@ -4,17 +4,16 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
-    "date-fns": "^2.0.0-alpha.10",
     "debounce": "^1.2.0",
     "flow-bin": "^0.73.0",
     "prettier": "^1.13.4",
-    "qs": "^6.5.2",
-    "react": "^16.4.0",
-    "react-art": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-media": "^1.8.0",
-    "react-native-web": "^0.8.3",
-    "react-scripts": "1.1.4",
+    "qs": "^6.6.0",
+    "react": "^16.7.0",
+    "react-art": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-media": "^1.9.2",
+    "react-native-web": "^0.9.10",
+    "react-scripts": "^2.1.1",
     "timestring": "^5.0.1"
   },
   "scripts": {
@@ -36,5 +35,11 @@
   },
   "devDependencies": {
     "cypress": "^3.0.1"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
