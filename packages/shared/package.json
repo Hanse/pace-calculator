@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.2.2",
     "babel-jest": "^23.6.0",
+    "babel-preset-react-app": "^7.0.0",
     "classnames": "^2.2.6",
     "debounce": "^1.2.0",
     "flow-bin": "0.81",
@@ -13,11 +15,10 @@
     "react-art": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-media": "^1.9.2",
-    "react-native": "^0.57.8",
     "timestring": "^5.0.1"
   },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "ci": "yarn run flow && yarn run test"
   }
 }
