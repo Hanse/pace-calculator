@@ -1,45 +1,17 @@
 {
   "name": "pace-calculator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "debounce": "^1.2.0",
-    "flow-bin": "^0.73.0",
-    "prettier": "^1.13.4",
-    "qs": "^6.6.0",
-    "react": "^16.7.0",
-    "react-art": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-media": "^1.9.2",
-    "react-native-web": "^0.9.10",
-    "react-scripts": "^2.1.1",
-    "timestring": "^5.0.1"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "cypress:open": "yarn run cypress open",
-    "ci": "yarn run flow && CI=true yarn run test && yarn run cypress run"
+    "dev:web": "yarn workspace @pace-calculator/web start",
+    "build:web": "yarn workspace @pace-calculator/web build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "parser": "flow",
-    "singleQuote": true,
-    "bracketSpacing": true
-  },
-  "devDependencies": {
-    "cypress": "^3.0.1"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "dependencies": {
+    "flow-bin": "0.81"
+  }
 }

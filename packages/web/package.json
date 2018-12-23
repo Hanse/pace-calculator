@@ -1,0 +1,33 @@
+{
+  "name": "@pace-calculator/web",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@pace-calculator/shared": "1.0.0",
+    "flow-bin": "0.81",
+    "react-app-rewire-yarn-workspaces": "1.0.3",
+    "react-app-rewired": "1.6.2",
+    "react-native-web": "0.9.10",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "parser": "flow",
+    "singleQuote": true,
+    "bracketSpacing": true
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

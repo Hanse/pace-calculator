@@ -10,7 +10,8 @@ type RangeInputProps = {
   value: number,
   min: number,
   max: number,
-  onChange?: (event: Object) => mixed
+  onChange?: (event: Object) => mixed,
+  disabled?: boolean
 };
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
