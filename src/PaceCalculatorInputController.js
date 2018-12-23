@@ -13,7 +13,7 @@ import PRESETS from './data.json';
 const Label = ({ children, ...props }) => (
   <Text
     accessibilityRole="label"
-    style={[styles.text, styles.textSmall, { color: '#999' }]}
+    style={[styles.text, styles.textSmall, { color: '#555' }]}
     {...props}
   >
     {children}
@@ -148,72 +148,79 @@ class PaceCalculator extends PureComponent<Props, State> {
       <View>
         <View style={{ marginBottom: 30 }}>
           <View style={{ paddingVertical: 10 }}>
-            <Text style={[styles.text, styles.textBold]}>Enter a goal</Text>
+            <Text style={[styles.text, styles.textBold, styles.textLarge]}>
+              Enter a goal
+            </Text>
           </View>
           <Card>
-            <View
-              style={{ marginBottom: 15 }}
-              accessible
-              accessibilityLabel="Distance"
-            >
-              <Label>{'Distance 👟'}</Label>
-              <TextInput
-                style={[styles.textInput]}
-                autoCapitalize="none"
-                autoFocus
-                type="text"
-                name="distance"
-                placeholder="a marathon or 1500 m"
-                value={this.state.distance}
-                onChange={this.handleInput('DISTANCE_CHANGED')}
-              />
-            </View>
-            <View accessible accessibilityLabel="Time">
-              <Label>{'Time ⏱'}</Label>
-              <TextInput
-                autoCapitalize="none"
-                style={[styles.textInput]}
-                type="text"
-                name="time"
-                placeholder="3:26.00 or 3 hours"
-                value={this.state.time}
-                onChange={this.handleInput('TIME_CHANGED')}
-              />
-            </View>
+            <View style={{ padding: 20 }}>
+              <View
+                style={{ marginBottom: 15 }}
+                accessible
+                accessibilityLabel="Distance"
+              >
+                <Label>{'Distance 👟'}</Label>
+                <TextInput
+                  style={[styles.textInput]}
+                  autoCapitalize="none"
+                  autoFocus
+                  type="text"
+                  name="distance"
+                  placeholder="e.g. a marathon or 1500 m"
+                  value={this.state.distance}
+                  onChange={this.handleInput('DISTANCE_CHANGED')}
+                />
+              </View>
+              <View accessible accessibilityLabel="Time">
+                <Label>{'Time ⏱'}</Label>
+                <TextInput
+                  autoCapitalize="none"
+                  style={[styles.textInput]}
+                  type="text"
+                  name="time"
+                  placeholder="e.g. 3:26.00 or 3 hours"
+                  value={this.state.time}
+                  onChange={this.handleInput('TIME_CHANGED')}
+                />
+              </View>
 
-            <View style={{ paddingTop: 40 }}>
-              <Label numberOfLines={1}>
-                Or you can select from our presets
-              </Label>
+              <View style={{ paddingTop: 40 }}>
+                <Label numberOfLines={1}>
+                  Or you can select from our presets
+                </Label>
+              </View>
+              <Picker
+                onValueChange={this.handlePresetSelect}
+                style={styles.picker}
+              >
+                <Picker.Item label="Select a preset" value="" />
+                {PRESETS.presets.map(preset => {
+                  const description = `${preset.event} ${preset.name}`;
+                  return (
+                    <Picker.Item
+                      key={preset.id}
+                      label={description}
+                      value={preset.id}
+                    />
+                  );
+                })}
+              </Picker>
             </View>
-            <Picker
-              onValueChange={this.handlePresetSelect}
-              style={styles.picker}
-            >
-              <Picker.Item label="Select a preset" value="" />
-              {PRESETS.presets.map(preset => {
-                const description = `${preset.event} ${preset.name}`;
-                return (
-                  <Picker.Item
-                    key={preset.id}
-                    label={description}
-                    value={preset.id}
-                  />
-                );
-              })}
-            </Picker>
           </Card>
         </View>
 
         <View style={{ marginBottom: 30 }}>
           <View style={{ paddingVertical: 10 }}>
-            <Text style={[styles.text, styles.textBold]}>Splits</Text>
+            <Text style={[styles.text, styles.textBold, styles.textLarge]}>
+              Splits
+            </Text>
           </View>
 
           <Card>
             <View
               style={[
-                (!meters || !seconds) && { filter: 'blur(6px)', opacity: 0.5 }
+                (!meters || !seconds) && { filter: 'blur(6px)', opacity: 0.5 },
+                { padding: 20 }
               ]}
             >
               <SplitCalculator
@@ -227,7 +234,9 @@ class PaceCalculator extends PureComponent<Props, State> {
         </View>
 
         <View style={{ paddingVertical: 10 }}>
-          <Text style={[styles.text, styles.textBold]}>Timing data</Text>
+          <Text style={[styles.text, styles.textBold, styles.textLarge]}>
+            Timing data
+          </Text>
         </View>
 
         {this.props.render({

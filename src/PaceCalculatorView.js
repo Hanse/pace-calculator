@@ -18,11 +18,18 @@ const Summary = ({ data }) => (
     {data.map(([key, value]) => (
       <View key={key} style={{ flexDirection: 'row', paddingVertical: 5 }}>
         <View style={{ width: '50%' }}>
-          <Text style={[styles.text, styles.textSmall, styles.textBold]}>
+          <Text
+            style={[
+              styles.text,
+              styles.textSmall,
+              styles.textBold,
+              { color: '#fff' }
+            ]}
+          >
             {key}
           </Text>
         </View>
-        <Text style={[styles.text, styles.textSmall]}>{value}</Text>
+        <Text style={[styles.text, { color: '#fff' }]}>{value}</Text>
       </View>
     ))}
   </View>
@@ -46,7 +53,7 @@ class PaceCalculatorView extends PureComponent<Props> {
               ['Required pace', getPace(meters, seconds)]
             ]}
           />
-          <View style={{ paddingVertical: 30 }}>
+          <View style={{ padding: 20 }}>
             <View style={[styles.row, { padding: 8 }]}>
               <View style={[{ flex: 1 }]}>
                 <Text style={[styles.text, styles.textBold]}>Lap</Text>
@@ -57,6 +64,8 @@ class PaceCalculatorView extends PureComponent<Props> {
             </View>
             {PREDEFINED_LAPS.map((distance, index) => {
               const scaledSeconds = (seconds * distance) / (meters || 1);
+              const highlight = value =>
+                distance === value && { fontWeight: '700' };
               return (
                 <View
                   key={index}
@@ -67,21 +76,24 @@ class PaceCalculatorView extends PureComponent<Props> {
                     index % 2 === 0 && {
                       backgroundColor: '#f3f3f3'
                     },
-                    distance === 400 && {
-                      backgroundColor: '#F5DA81'
-                    },
-                    distance === 1000 && {
-                      backgroundColor: '#a8ddd4'
-                    },
-                    { padding: 8 }
+                    { padding: 12 }
                   ]}
                 >
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.text}>{withCommas(distance)} m</Text>
+                    <Text
+                      style={[styles.text, styles.textSmall, highlight(1000)]}
+                    >
+                      {withCommas(distance)} m
+                    </Text>
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text
-                      style={[styles.text, { cursor: 'help' }]}
+                      style={[
+                        styles.text,
+                        styles.textSmall,
+                        highlight(1000),
+                        { cursor: 'help' }
+                      ]}
                       title={`${scaledSeconds.toFixed(2)} seconds`}
                     >
                       <Text style={{ color: '#ccc' }}>~ </Text>
@@ -94,24 +106,26 @@ class PaceCalculatorView extends PureComponent<Props> {
           </View>
         </View>
 
-        <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
-          This nifty pace calculator shows how fast you need to run on average
-          to achieve your time-goals. The table shows required lap-times to
-          finish in the desired total time.
-          <Text style={{ fontStyle: 'italic' }}>
-            It does not show estimated equivalent race performances.
+        <View style={{ padding: 20 }}>
+          <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
+            This nifty pace calculator shows how fast you need to run on average
+            to achieve your time-goals. The table shows required lap-times to
+            finish in the desired total time.{' '}
+            <Text style={{ fontStyle: 'italic' }}>
+              It does not show estimated equivalent race performances.
+            </Text>
           </Text>
-        </Text>
 
-        <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
-          Use this tool to go figure out how fast you must run or see how
-          incredibly fast people have managed to run various distances.{' '}
-          <Text style={{ fontStyle: 'italic' }}>
-            If you are running on a regular track, the time in the 400 m row
-            should match your watch {'⌚️'} after each lap to be sure you make
-            it in time.
+          <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
+            Use this tool to go figure out how fast you must run or see how
+            incredibly fast people have managed to run various distances.{' '}
+            <Text style={{ fontStyle: 'italic' }}>
+              If you are running on a regular track, the time in the 400 m row
+              should match your watch {'⌚️'} after each lap to be sure you make
+              it in time.
+            </Text>
           </Text>
-        </Text>
+        </View>
       </Card>
     );
   }

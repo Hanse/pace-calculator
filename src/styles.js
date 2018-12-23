@@ -6,23 +6,23 @@ const baseFontSize = 20;
 
 export default StyleSheet.create({
   text: {
-    fontFamily: 'system-ui, Helvetica, sans-serif',
+    fontFamily: 'system-ui, Arial, "Helvetica Neue", Helvetica, sans-serif',
     fontSize: baseFontSize,
-    color: '#333',
+    color: '#232323',
     fontWeight: '400'
   },
   textSmall: {
     fontSize: baseFontSize * 0.9
   },
   textLarge: {
-    fontSize: baseFontSize * 1.3
+    fontSize: baseFontSize * 1.2
   },
   textBold: {
     fontWeight: '500'
   },
   paragraph: {
     marginBottom: 10,
-    lineHeight: baseFontSize * 1.6
+    lineHeight: baseFontSize * 1.3
   },
   paddingSmall: {
     padding: 5
@@ -33,7 +33,7 @@ export default StyleSheet.create({
   textInput: {
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
-    borderColor: '#ddd',
+    borderColor: '#ccc',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     padding: 10,
     borderRadius: 5,
@@ -48,16 +48,17 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     padding: 10,
-    borderColor: '#ddd',
+    borderColor: '#ccc',
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
   },
   summary: {
-    backgroundColor: '#fff8d3',
-    padding: 15,
-    borderColor: '#f2de7b',
-    borderWidth: 2
+    backgroundColor: '#2d3d60',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    padding: 25,
+    paddingVertical: 20
   },
   button: {
     flex: 1,

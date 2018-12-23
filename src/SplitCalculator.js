@@ -15,7 +15,7 @@ type RangeInputProps = {
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-function RangeInput({ value, min, max, onChange }: RangeInputProps) {
+function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
   const update = offset => () =>
     onChange &&
     onChange({ target: { value: clamp(value + offset, min, max).toString() } });
@@ -42,6 +42,7 @@ function RangeInput({ value, min, max, onChange }: RangeInputProps) {
             min={min}
             max={max}
             onChange={onChange}
+            disabled={disabled}
           />
         )
       }
@@ -57,7 +58,7 @@ type Props = {
 };
 
 function getColor(value) {
-  return value <= 0 ? 'rgba(0, 255, 0, 0.3)' : 'rgba(255, 0, 0, 0.3)';
+  return value <= 0 ? '#2ecc71' : '#e74c3c';
 }
 
 class SplitCalculator extends PureComponent<Props> {

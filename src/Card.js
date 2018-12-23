@@ -13,7 +13,7 @@ export default function Card({ style, ...props }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 20,
+    padding: 0,
     borderRadius: 10,
     backgroundColor: '#fff',
     ...Platform.select({
