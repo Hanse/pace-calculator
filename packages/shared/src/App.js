@@ -28,7 +28,7 @@ class App extends PureComponent<{}> {
       >
         <View style={styles.header}>
           <View style={styles.container}>
-            <Text style={styles.headerText}>Pace Calculator</Text>
+            <Text style={styles.headerText}>Pace Charts</Text>
           </View>
         </View>
 
