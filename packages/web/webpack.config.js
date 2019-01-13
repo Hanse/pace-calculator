@@ -21,7 +21,12 @@ module.exports = {
         process.env.NODE_ENV || 'development'
       )
     }),
-    new HtmlWebpackPlugin({ template: 'index.html.ejs' }),
+    new HtmlWebpackPlugin({
+      template: 'index.html.ejs',
+      templateParameters: {
+        baseUrl: process.env.PUBLIC_URL
+      }
+    }),
     new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'public') }])
   ],
   module: {
