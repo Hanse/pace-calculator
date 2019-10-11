@@ -1,6 +1,6 @@
 {
   "name": "pace-calculator",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "workspaces": {
     "packages": [
@@ -9,9 +9,11 @@
   },
   "scripts": {
     "dev:web": "yarn workspace @pace-calculator/web start",
-    "build:web": "yarn workspace @pace-calculator/web build"
+    "build:web": "yarn workspace @pace-calculator/web build",
+    "dev:ios": "yarn workspace @pace-calculator/mobile ios"
   },
   "dependencies": {
+    "@babel/runtime": "^7.2.0",
     "flow-bin": "0.81"
   }
 }

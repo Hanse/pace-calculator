@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.2.2",
-    "@pace-calculator/shared": "1.0.0",
+    "@pace-calculator/shared": "0.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-react-native-web": "^0.9.10",
     "babel-preset-react-app": "^7.0.0",
