@@ -13,7 +13,7 @@
     "dev:ios": "yarn workspace @pace-calculator/mobile ios"
   },
   "dependencies": {
-    "@babel/runtime": "^7.2.0",
-    "flow-bin": "0.81"
+    "@babel/runtime": "^7.8.4",
+    "flow-bin": "0.118.0"
   }
 }

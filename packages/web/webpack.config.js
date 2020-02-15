@@ -41,6 +41,11 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    alias: {
+      'react-native$': 'react-native-web'
+    }
+  },
   devServer: {
     historyApiFallback: true,
     quiet: false,

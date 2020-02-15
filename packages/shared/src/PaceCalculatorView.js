@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import styles from './styles';
 import Card from './Card';
 import { toHHMMSS, getPace, withCommas } from './formatting';
@@ -92,7 +92,9 @@ class PaceCalculatorView extends PureComponent<Props> {
                         styles.text,
                         styles.textSmall,
                         highlight(1000),
-                        { cursor: 'help' }
+                        Platform.select({
+                          web: { cursor: 'help' }
+                        })
                       ]}
                       title={`${scaledSeconds.toFixed(2)} seconds`}
                     >

@@ -3,22 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.2.2",
-    "babel-jest": "^23.6.0",
-    "babel-preset-react-app": "^7.0.0",
     "classnames": "^2.2.6",
     "debounce": "^1.2.0",
-    "flow-bin": "0.81",
-    "jest": "^23.6.0",
-    "qs": "^6.6.0",
-    "react": "^16.7.0",
-    "react-art": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-media": "^1.9.2",
+    "qs": "^6.9.1",
+    "react": "^16.12.0",
+    "react-art": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-media": "^1.10.0",
     "timestring": "^5.0.1"
   },
-  "scripts": {
-    "test": "NODE_ENV=test jest",
-    "ci": "yarn run flow && yarn run test"
+  "prettier": {
+    "singleQuote": true
   }
 }

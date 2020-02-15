@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
-import { View, Text, Picker, TextInput, Platform } from 'react-native';
+import { View, Text, Picker, Platform, TextInput } from 'react-native';
 import qs from 'qs';
 import debounce from 'debounce';
 import { parseSeconds, parseMeters } from './parsers';
@@ -11,11 +11,7 @@ import styles from './styles';
 import PRESETS from './data.json';
 
 const Label = ({ children, ...props }) => (
-  <Text
-    accessibilityRole="label"
-    style={[styles.text, styles.textSmall, { color: '#555' }]}
-    {...props}
-  >
+  <Text style={[styles.text, styles.textSmall, { color: '#555' }]} {...props}>
     {children}
   </Text>
 );
@@ -100,13 +96,8 @@ class PaceCalculator extends PureComponent<Props, State> {
     );
   };
 
-  handleInput = (type: string) => (e: SyntheticInputEvent<*>) => {
-    this.setState(
-      update({
-        type,
-        value: e.target.value
-      })
-    );
+  handleInput = (type: string) => (value: string) => {
+    this.setState(update({ type, value }));
   };
 
   handleSplitChange = (e: any) => {
@@ -122,9 +113,7 @@ class PaceCalculator extends PureComponent<Props, State> {
     global.history.pushState(
       null,
       null,
-      `?time=${this.state.time}&distance=${this.state.distance}&splitValue=${
-        this.state.splitValue
-      }`
+      `?time=${this.state.time}&distance=${this.state.distance}&splitValue=${this.state.splitValue}`
     );
   }, 300);
 
@@ -168,7 +157,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                   name="distance"
                   placeholder="e.g. a marathon or 1500 m"
                   value={this.state.distance}
-                  onChange={this.handleInput('DISTANCE_CHANGED')}
+                  onChangeText={this.handleInput('DISTANCE_CHANGED')}
                 />
               </View>
               <View accessible accessibilityLabel="Time">
@@ -180,7 +169,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                   name="time"
                   placeholder="e.g. 3:26.00 or 3 hours"
                   value={this.state.time}
-                  onChange={this.handleInput('TIME_CHANGED')}
+                  onChangeText={this.handleInput('TIME_CHANGED')}
                 />
               </View>
 
