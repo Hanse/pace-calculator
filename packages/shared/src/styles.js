@@ -50,7 +50,6 @@ export default StyleSheet.create({
   },
   picker: {
     marginVertical: 5,
-    height: 42,
     backgroundColor: 'white',
     borderRadius: 5,
     padding: 10,
@@ -59,6 +58,7 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     ...Platform.select({
       web: {
+        height: 42,
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
       }
     })

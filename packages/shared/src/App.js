@@ -14,7 +14,9 @@ import PaceCalculatorView from './PaceCalculatorView';
 import globalStyles from './styles';
 import { TARTAN as theme } from './theme';
 
-const PADDING = 25;
+const PADDING = 24;
+
+const HEADER_HEIGHT = 60;
 
 const ExternalLink = ({ style, ...props }: { style?: any }) => (
   <Text
@@ -28,18 +30,7 @@ class App extends PureComponent<{}> {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent'
-          }}
-        >
-          <View style={styles.header}>
-            <View style={styles.container}>
-              <Text style={styles.headerText}>Pace Charts</Text>
-            </View>
-          </View>
-
+        <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
             <View style={{ padding: PADDING, paddingBottom: 0 }}>
               <PaceCalculatorInputController
@@ -64,6 +55,11 @@ class App extends PureComponent<{}> {
             </View>
           </View>
         </ScrollView>
+        <View style={styles.header}>
+          <View style={styles.container}>
+            <Text style={styles.headerText}>Pace Charts</Text>
+          </View>
+        </View>
       </SafeAreaView>
     );
   }
@@ -74,7 +70,23 @@ const styles = StyleSheet.create({
     backgroundColor: theme.backgroundColor,
     paddingHorizontal: PADDING,
     paddingVertical: PADDING / 2,
-    display: 'flex'
+    display: 'flex',
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    ...Platform.select({
+      ios: {
+        paddingTop: 44
+      }
+    })
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    marginTop: Platform.select({
+      web: HEADER_HEIGHT,
+      ios: HEADER_HEIGHT - 12
+    })
   },
   container: {
     ...Platform.select({
