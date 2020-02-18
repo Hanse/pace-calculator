@@ -1,7 +1,7 @@
 // @flow
 
 import { AppRegistry } from 'react-native-web';
-import App from '@pace-calculator/shared/src/App';
+import App from '@snittfart/shared/src/App';
 
 AppRegistry.registerComponent('App', () => App);
 

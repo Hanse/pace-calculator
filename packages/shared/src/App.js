@@ -57,7 +57,7 @@ class App extends PureComponent<{}> {
         </ScrollView>
         <View style={styles.header}>
           <View style={styles.container}>
-            <Text style={styles.headerText}>Pace Charts</Text>
+            <Text style={styles.headerText}>Snittfart</Text>
           </View>
         </View>
       </SafeAreaView>

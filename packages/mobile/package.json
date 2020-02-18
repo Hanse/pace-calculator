@@ -1,5 +1,5 @@
 {
-  "name": "@pace-calculator/mobile",
+  "name": "@snittfart/mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",
-    "@pace-calculator/shared": "0.0.1",
+    "@snittfart/shared": "0.0.1",
     "react": "16.12.0",
     "react-native": "0.61.5"
   },

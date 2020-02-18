@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from '@pace-calculator/shared/src/App';
+import App from '@snittfart/shared/src/App';
 
 AppRegistry.registerComponent('Snittfart', () => App);

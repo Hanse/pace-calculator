@@ -1,4 +1,4 @@
-# pace-calculator
+# snittfart
 
 > How fast must I run?
 
@@ -10,4 +10,4 @@ Made with [react-native-web](https://github.com/necolas/react-native-web).
 
 ## License
 
-Copyright (c) 2018 Hans-Kristian Koren
+Copyright (c) 2020 Hans-Kristian Koren
