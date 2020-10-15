@@ -9,8 +9,7 @@
   },
   "scripts": {
     "dev:web": "yarn workspace @snittfart/web start",
-    "build:web": "yarn workspace @snittfart/web build",
-    "dev:ios": "yarn workspace @snittfart/mobile ios"
+    "build:web": "yarn workspace @snittfart/web build"
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",

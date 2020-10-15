@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.8.4",
-    "@snittfart/shared": "0.0.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-react-native-web": "^0.12.1",
     "babel-preset-react-app": "^9.1.1",
