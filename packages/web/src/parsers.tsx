@@ -1,8 +1,6 @@
-// @flow
-
 import timestring from './timestring';
 
-const hundreds = value => {
+const hundreds = (value: string | null | undefined) => {
   if (!value) {
     return 0;
   }
@@ -13,68 +11,71 @@ const hundreds = value => {
   return parseInt(number, 10) / 10 ** digits;
 };
 
-const TIMES = [
+type Rule = [RegExp, number | ((match: RegExpMatchArray) => number)];
+
+const TIMES: Rule[] = [
   [
     /^([\d\s]+)(\.\d{1,3})?$/,
-    match => parseInt(match[1], 10) + hundreds(match[2])
+    (match) => parseInt(match[1], 10) + hundreds(match[2]),
   ],
   [
     /^(\d{1,2}):(\d{1,2})(\.\d{1,3})?$/,
-    match => {
+    (match) => {
       return (
         60 * parseInt(match[1], 10) +
         parseInt(match[2], 10) +
         hundreds(match[3])
       );
-    }
+    },
   ],
   [
     /^(\d{1,2}):(\d{1,2}):(\d{1,2})(\.\d{1,3})?$/,
-    match => {
+    (match) => {
       return (
         60 * 60 * parseInt(match[1], 10) +
         60 * parseInt(match[2], 10) +
         parseInt(match[3], 10) +
         hundreds(match[4])
       );
-    }
+    },
   ],
   [
     /.*/,
-    match => {
+    (match) => {
       try {
         return timestring(match[0].replace(/,/g, '.'));
       } catch (error) {
         return 0;
       }
-    }
-  ]
+    },
+  ],
 ];
 
-const DISTANCES = [
+const DISTANCES: Rule[] = [
   [/half[-\s]?marath?on/i, 21098],
   [/marath?on/i, 42195],
   [
     /(\d+(,|.\d+)?)\s*km?/i,
-    match => {
+    (match) => {
       return parseFloat(match[1].replace(/,/g, '.')) * 1000;
-    }
+    },
   ],
   [
     /^(a|(\d+(,|.\d+)?))?\s*miles?$/i,
-    match => {
+    (match) => {
       const multiplier =
         match[1] === 'a' || !match[1]
           ? 1
           : parseFloat(match[1].replace(/,/g, '.'));
       return 1609.34 * multiplier;
-    }
-  ]
+    },
+  ],
 ];
 
-const parseInput = (rules, defaultEvaluator: string => number) => (
-  value: string
-) => {
+const parseInput = (
+  rules: Rule[],
+  defaultEvaluator: (value: string) => number
+) => (value: string) => {
   for (const [regex, parsedValue] of rules) {
     const match = value.match(regex);
     if (match) {
@@ -91,5 +92,5 @@ const parseInput = (rules, defaultEvaluator: string => number) => (
 export const parseSeconds = parseInput(TIMES, () => 0);
 export const parseMeters = parseInput(
   DISTANCES,
-  value => parseFloat(value) || 0
+  (value) => parseFloat(value) || 0
 );

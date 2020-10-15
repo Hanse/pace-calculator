@@ -1,10 +1,9 @@
-// @flow
-
 import React from 'react';
-import { View, Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 type Props = {
-  style?: any
+  style?: any,
+  children: React.ReactNode,
 };
 
 export default function Card({ style, ...props }: Props) {
@@ -18,8 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     ...Platform.select({
       web: {
-        boxShadow: '0 0 30px rgba(0, 0, 0, 0.1)'
-      }
-    })
-  }
+        boxShadow: '0 0 30px rgba(0, 0, 0, 0.1)',
+      },
+    }),
+  },
 });

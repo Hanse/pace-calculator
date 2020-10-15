@@ -1,14 +1,13 @@
-// @flow
-
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import {
-  View,
-  Text,
+  Platform,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Platform,
-  SafeAreaView
+  Text,
+  View,
 } from 'react-native';
+
 import PaceCalculatorInputController from './PaceCalculatorInputController';
 import PaceCalculatorView from './PaceCalculatorView';
 import globalStyles from './styles';
@@ -18,7 +17,10 @@ const PADDING = 24;
 
 const HEADER_HEIGHT = 60;
 
-const ExternalLink = ({ style, ...props }: { style?: any }) => (
+const ExternalLink: React.FunctionComponent<{ style?: any, href: string }> = ({
+  style,
+  ...props
+}) => (
   <Text
     accessibilityRole="link"
     style={[{ color: '#999' }, style]}
@@ -26,7 +28,7 @@ const ExternalLink = ({ style, ...props }: { style?: any }) => (
   />
 );
 
-class App extends PureComponent<{}> {
+class App extends React.PureComponent<{}> {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -76,30 +78,30 @@ const styles = StyleSheet.create({
     left: 0,
     ...Platform.select({
       ios: {
-        paddingTop: 44
-      }
-    })
+        paddingTop: 44,
+      },
+    }),
   },
   scrollView: {
     flex: 1,
     backgroundColor: 'transparent',
     marginTop: Platform.select({
       web: HEADER_HEIGHT,
-      ios: HEADER_HEIGHT - 12
-    })
+      ios: HEADER_HEIGHT - 12,
+    }),
   },
   container: {
     ...Platform.select({
       web: {
-        maxWidth: 700
-      }
-    })
+        maxWidth: 700,
+      },
+    }),
   },
   headerText: {
     fontSize: 28,
     fontWeight: '700',
-    color: theme.color
-  }
+    color: theme.color,
+  },
 });
 
 export default App;

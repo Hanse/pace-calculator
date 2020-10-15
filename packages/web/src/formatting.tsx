@@ -1,5 +1,3 @@
-// @flow
-
 type ToHHMMSSMode = 'units' | 'normal' | null;
 type Seconds = number;
 
@@ -15,7 +13,7 @@ export const toHHMMSS = (
   const parts = [
     [hours, 'hours'],
     [minutes, 'min'],
-    [seconds.toFixed(digits), 'sec']
+    [seconds.toFixed(digits), 'sec'],
   ];
 
   if (!hours) {

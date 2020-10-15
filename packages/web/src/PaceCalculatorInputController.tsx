@@ -1,29 +1,35 @@
-// @flow
-
-import React, { PureComponent, type Node } from 'react';
-import { View, Text, Picker, Platform, TextInput } from 'react-native';
-import qs from 'qs';
 import debounce from 'debounce';
-import { parseSeconds, parseMeters } from './parsers';
+import qs from 'qs';
+import React, { PureComponent } from 'react';
+import {
+  Picker,
+  Platform,
+  Text,
+  TextInput,
+  TextProps,
+  View,
+} from 'react-native';
+
 import Card from './Card';
+import PRESETS from './data.json';
+import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
 import styles from './styles';
-import PRESETS from './data.json';
 
-const Label = ({ children, ...props }) => (
+const Label: React.FunctionComponent<TextProps> = ({ children, ...props }) => (
   <Text style={[styles.text, styles.textSmall, { color: '#555' }]} {...props}>
     {children}
   </Text>
 );
 
 type Props = {
-  render: ({ meters: number, seconds: number }) => Node
+  render: (props: { meters: number, seconds: number }) => React.ReactNode,
 };
 
 type State = {
   time: string,
   distance: string,
-  splitValue: string
+  splitValue: string,
 };
 
 function getInitialState() {
@@ -31,23 +37,23 @@ function getInitialState() {
     return {
       time: '',
       distance: '',
-      splitValue: ''
+      splitValue: '',
     };
   }
 
   const query = qs.parse(window.location.search.slice(1) || '');
   return {
-    time: query.time || '',
-    distance: query.distance || '',
-    splitValue: query.splitValue || ''
+    time: (query.time || '') as string,
+    distance: (query.distance || '') as string,
+    splitValue: (query.splitValue || '') as string,
   };
 }
 
-const update = (action: Object) => state => {
+const update = (action: any) => (state: any) => {
   switch (action.type) {
     case 'PRESET_SELECTED': {
       const key = action.preset;
-      const preset = PRESETS.presets.find(preset => preset.id === key);
+      const preset = PRESETS.presets.find((preset) => preset.id === key)!;
 
       const splitValue = preset.halfSplit || `${parseSeconds(preset.time) / 2}`;
 
@@ -55,7 +61,7 @@ const update = (action: Object) => state => {
         ...state,
         time: preset.time,
         distance: preset.distance,
-        splitValue
+        splitValue,
       };
     }
 
@@ -63,20 +69,20 @@ const update = (action: Object) => state => {
       return {
         ...state,
         distance: action.value,
-        splitValue: `${parseSeconds(state.time) / 2}`
+        splitValue: `${parseSeconds(state.time) / 2}`,
       };
 
     case 'TIME_CHANGED':
       return {
         ...state,
         time: action.value,
-        splitValue: `${parseSeconds(action.value) / 2}`
+        splitValue: `${parseSeconds(action.value) / 2}`,
       };
 
     case 'SPLIT_CHANGED':
       return {
         ...state,
-        splitValue: action.value
+        splitValue: action.value,
       };
 
     default:
@@ -85,13 +91,13 @@ const update = (action: Object) => state => {
 };
 
 class PaceCalculator extends PureComponent<Props, State> {
-  state = getInitialState();
+  state: State = getInitialState();
 
   handlePresetSelect = (key: string) => {
     this.setState(
       update({
         type: 'PRESET_SELECTED',
-        preset: key
+        preset: key,
       })
     );
   };
@@ -104,13 +110,13 @@ class PaceCalculator extends PureComponent<Props, State> {
     this.setState(
       update({
         type: 'SPLIT_CHANGED',
-        value: e.target.value
+        value: e.target.value,
       })
     );
   };
 
   updateQueryParams = debounce(() => {
-    global.history.pushState(
+    (global as any).history.pushState(
       null,
       null,
       `?time=${this.state.time}&distance=${this.state.distance}&splitValue=${this.state.splitValue}`
@@ -153,6 +159,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                   style={[styles.textInput]}
                   autoCapitalize="none"
                   autoFocus
+                  // @ts-ignore
                   type="text"
                   name="distance"
                   placeholder="e.g. a marathon or 1500 m"
@@ -165,6 +172,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                 <TextInput
                   autoCapitalize="none"
                   style={[styles.textInput]}
+                  // @ts-ignore
                   type="text"
                   name="time"
                   placeholder="e.g. 3:26.00 or 3 hours"
@@ -183,7 +191,7 @@ class PaceCalculator extends PureComponent<Props, State> {
                 style={styles.picker}
               >
                 <Picker.Item label="Select a preset" value="" />
-                {PRESETS.presets.map(preset => {
+                {PRESETS.presets.map((preset) => {
                   const description = `${preset.event} ${preset.name}`;
                   return (
                     <Picker.Item
@@ -208,8 +216,9 @@ class PaceCalculator extends PureComponent<Props, State> {
           <Card>
             <View
               style={[
+                // @ts-ignore
                 (!meters || !seconds) && { filter: 'blur(6px)', opacity: 0.5 },
-                { padding: 20 }
+                { padding: 20 },
               ]}
             >
               <SplitCalculator
@@ -230,7 +239,7 @@ class PaceCalculator extends PureComponent<Props, State> {
 
         {this.props.render({
           meters,
-          seconds
+          seconds,
         })}
       </View>
     );

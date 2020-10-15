@@ -1,5 +1,3 @@
-// @flow
-
 import { toHHMMSS } from '../formatting';
 
 it('should convert to "digital" string', () => {

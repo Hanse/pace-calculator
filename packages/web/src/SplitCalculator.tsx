@@ -1,29 +1,29 @@
-// @flow
-
 import React, { PureComponent } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { getPace, withCommas, toHHMMSS } from './formatting';
-import styles from './styles';
+import { Text, TouchableOpacity, View } from 'react-native';
+
+import { getPace, toHHMMSS, withCommas } from './formatting';
 import Media from './Media';
+import styles from './styles';
 
 type RangeInputProps = {
   value: number,
   min: number,
   max: number,
-  onChange?: (event: Object) => mixed,
-  disabled?: boolean
+  onChange?: (event: Object) => void,
+  disabled?: boolean,
 };
 
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
 
 function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
-  const update = offset => () =>
+  const update = (offset: number) => () =>
     onChange &&
     onChange({ target: { value: clamp(value + offset, min, max).toString() } });
 
   return (
     <Media query="(max-width: 768px)" defaultMatches={true}>
-      {isMobile =>
+      {(isMobile) =>
         isMobile ? (
           onChange ? (
             <View style={{ flexDirection: 'row' }}>
@@ -54,11 +54,11 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
 type Props = {
   meters: number,
   seconds: number,
-  onChange: Object => mixed,
-  value: number
+  onChange: (e: any) => any,
+  value: number,
 };
 
-function getColor(value) {
+function getColor(value: number) {
   return value <= 0 ? '#2ecc71' : '#e74c3c';
 }
 
@@ -71,10 +71,10 @@ class SplitCalculator extends PureComponent<Props> {
 
     return (
       <Media query="(max-width: 768px)" defaultMatches={true}>
-        {isMobile => (
+        {(isMobile) => (
           <View
             style={{
-              flexDirection: isMobile ? 'column' : 'row'
+              flexDirection: isMobile ? 'column' : 'row',
             }}
           >
             <View
@@ -84,7 +84,7 @@ class SplitCalculator extends PureComponent<Props> {
                 width: 24,
                 height: 24,
                 borderRadius: 12,
-                backgroundColor: getColor(diff / this.props.seconds)
+                backgroundColor: getColor(diff / this.props.seconds),
               }}
             />
             <View style={{ flex: 1, padding: 10 }}>

@@ -1,16 +1,14 @@
-// @flow
-
 const CONVERSION = {
   ms: 0.001,
   s: 1,
   m: 60,
-  h: 3600
+  h: 3600,
 };
 
 const UNITS = {
   s: /^(s|sec|secs|second|seconds)(.+)?$/i,
   m: /^(m|min|mins|minute|minutes)(.+)?$/i,
-  h: /^(h|ho|hou|hour|hours|hr|hrs)(.+)?$/i
+  h: /^(h|ho|hou|hour|hours|hr|hrs)(.+)?$/i,
 };
 
 export default function parse(input: string) {
@@ -34,10 +32,10 @@ export default function parse(input: string) {
   }, 0);
 }
 
-function getUnitKey(unit) {
-  for (let key of Object.keys(UNITS)) {
-    if (UNITS[key].test(unit)) {
-      return key;
+function getUnitKey(unit: string) {
+  for (const key of Object.keys(UNITS)) {
+    if (UNITS[key as keyof typeof UNITS].test(unit)) {
+      return key as keyof typeof UNITS;
     }
   }
 

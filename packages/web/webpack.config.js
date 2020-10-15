@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
-    app: path.resolve(__dirname, 'src/index.js'),
+    app: path.resolve(__dirname, 'src/index.tsx'),
     vendor: ['react', 'react-dom'],
   },
   output: {
@@ -27,7 +27,9 @@ module.exports = {
         baseUrl: process.env.PUBLIC_URL,
       },
     }),
-    new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'public') }]),
+    new CopyWebpackPlugin([
+      { patterns: [{ from: path.resolve(__dirname, 'public') }] },
+    ]),
   ],
   module: {
     rules: [

@@ -1,5 +1,3 @@
-// @flow
-
 import ts from '../timestring';
 
 it('convert timestrings to seconds', () => {

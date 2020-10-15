@@ -1,19 +1,22 @@
-// @flow
-
 import React, { PureComponent } from 'react';
-import { View, Text, Platform } from 'react-native';
-import styles from './styles';
+import { Platform, Text, View } from 'react-native';
+
 import Card from './Card';
-import { toHHMMSS, getPace, withCommas } from './formatting';
+import { getPace, toHHMMSS, withCommas } from './formatting';
+import styles from './styles';
 
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
 type Props = {
   meters: number,
-  seconds: number
+  seconds: number,
 };
 
-const Summary = ({ data }) => (
+type SummaryProps = {
+  data: [string, string][],
+};
+
+const Summary = ({ data }: SummaryProps) => (
   <View style={styles.summary}>
     {data.map(([key, value]) => (
       <View key={key} style={{ flexDirection: 'row', paddingVertical: 5 }}>
@@ -23,7 +26,7 @@ const Summary = ({ data }) => (
               styles.text,
               styles.textSmall,
               styles.textBold,
-              { color: '#fff' }
+              { color: '#fff' },
             ]}
           >
             {key}
@@ -44,13 +47,14 @@ class PaceCalculatorView extends PureComponent<Props> {
     return (
       <Card>
         <View
+          // @ts-ignore
           style={[isMissingInputs && { filter: 'blur(6px)', opacity: 0.5 }]}
         >
           <Summary
             data={[
               ['Distance', `${withCommas(meters)} m`],
               ['Time', toHHMMSS(seconds, 'normal', 2)],
-              ['Required pace', getPace(meters, seconds)]
+              ['Required pace', getPace(meters, seconds)],
             ]}
           />
           <View style={{ padding: 20 }}>
@@ -64,37 +68,40 @@ class PaceCalculatorView extends PureComponent<Props> {
             </View>
             {PREDEFINED_LAPS.map((distance, index) => {
               const scaledSeconds = (seconds * distance) / (meters || 1);
-              const highlight = value =>
+              const highlight = (value: number) =>
                 distance === value && { fontWeight: '700' };
+
               return (
                 <View
                   key={index}
                   style={[
                     {
-                      flexDirection: 'row'
+                      flexDirection: 'row',
                     },
                     index % 2 === 0 && {
-                      backgroundColor: '#f3f3f3'
+                      backgroundColor: '#f3f3f3',
                     },
-                    { padding: 12 }
+                    { padding: 12 },
                   ]}
                 >
                   <View style={{ flex: 1 }}>
                     <Text
+                      // @ts-ignore
                       style={[styles.text, styles.textSmall, highlight(1000)]}
                     >
                       {withCommas(distance)} m
                     </Text>
                   </View>
                   <View style={{ flex: 1 }}>
+                    {/*@ts-ignore*/}
                     <Text
                       style={[
                         styles.text,
                         styles.textSmall,
                         highlight(1000),
                         Platform.select({
-                          web: { cursor: 'help' }
-                        })
+                          web: { cursor: 'help' },
+                        }),
                       ]}
                       title={`${scaledSeconds.toFixed(2)} seconds`}
                     >

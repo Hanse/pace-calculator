@@ -1,36 +1,34 @@
-// @flow
-
-import { StyleSheet, Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 const baseFontSize = 20;
 
 export default StyleSheet.create({
   text: {
     fontFamily: Platform.select({
-      web: 'system-ui, Arial, "Helvetica Neue", Helvetica, sans-serif'
+      web: 'system-ui, Arial, "Helvetica Neue", Helvetica, sans-serif',
     }),
     fontSize: baseFontSize,
     color: '#232323',
-    fontWeight: '400'
+    fontWeight: '400',
   },
   textSmall: {
-    fontSize: baseFontSize * 0.9
+    fontSize: baseFontSize * 0.9,
   },
   textLarge: {
-    fontSize: baseFontSize * 1.2
+    fontSize: baseFontSize * 1.2,
   },
   textBold: {
-    fontWeight: '500'
+    fontWeight: '500',
   },
   paragraph: {
     marginBottom: 10,
-    lineHeight: baseFontSize * 1.3
+    lineHeight: baseFontSize * 1.3,
   },
   paddingSmall: {
-    padding: 5
+    padding: 5,
   },
   row: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   textInput: {
     borderWidth: StyleSheet.hairlineWidth,
@@ -38,15 +36,15 @@ export default StyleSheet.create({
     borderColor: '#ccc',
     ...Platform.select({
       web: {
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
-      }
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+      },
     }),
     padding: 10,
     borderRadius: 5,
     fontSize: baseFontSize * 1.2,
     backgroundColor: '#fff',
     color: '#444',
-    marginVertical: 5
+    marginVertical: 5,
   },
   picker: {
     marginVertical: 5,
@@ -59,16 +57,16 @@ export default StyleSheet.create({
     ...Platform.select({
       web: {
         height: 42,
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
-      }
-    })
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+      },
+    }),
   },
   summary: {
     backgroundColor: '#2d3d60',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     padding: 25,
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   button: {
     flex: 1,
@@ -80,8 +78,8 @@ export default StyleSheet.create({
     borderRadius: 5,
     ...Platform.select({
       web: {
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
-      }
-    })
-  }
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+      },
+    }),
+  },
 });
