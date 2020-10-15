@@ -3,27 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.8.4",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-react-native-web": "^0.14.1",
-    "babel-preset-react-app": "^9.1.1",
-    "copy-webpack-plugin": "^6.2.1",
-    "html-webpack-plugin": "^4.5.0",
-    "react-native-web": "^0.14.1",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "debounce": "^1.2.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --host 0.0.0.0",
-    "build": "NODE_ENV=production webpack -p"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "prettier": {
     "printWidth": 80,
-    "parser": "flow",
     "singleQuote": true,
     "bracketSpacing": true
   },
@@ -34,16 +26,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.12.0",
     "@types/debounce": "^1.2.0",
     "@types/jest": "^26.0.14",
     "@types/qs": "^6.9.5",
     "@types/react": "^16.9.52",
-    "@types/react-native": "^0.63.25",
+    "@types/react-dom": "^16.9.8",
     "react-media": "^2.0.0-rc.1",
-    "typescript": "^4.0.3"
+    "react-scripts": "^3.4.3",
+    "typescript": "^3.9.7"
   }
 }

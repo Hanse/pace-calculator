@@ -1,14 +1,6 @@
 import debounce from 'debounce';
 import qs from 'qs';
 import React, { PureComponent } from 'react';
-import {
-  Picker,
-  Platform,
-  Text,
-  TextInput,
-  TextProps,
-  View,
-} from 'react-native';
 
 import Card from './Card';
 import PRESETS from './data.json';
@@ -16,31 +8,23 @@ import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
 import styles from './styles';
 
-const Label: React.FunctionComponent<TextProps> = ({ children, ...props }) => (
-  <Text style={[styles.text, styles.textSmall, { color: '#555' }]} {...props}>
+const Label: React.FunctionComponent<any> = ({ children, ...props }) => (
+  <span style={{ color: '#555' }} {...props}>
     {children}
-  </Text>
+  </span>
 );
 
 type Props = {
-  render: (props: { meters: number, seconds: number }) => React.ReactNode,
+  render: (props: { meters: number; seconds: number }) => React.ReactNode;
 };
 
 type State = {
-  time: string,
-  distance: string,
-  splitValue: string,
+  time: string;
+  distance: string;
+  splitValue: string;
 };
 
 function getInitialState() {
-  if (Platform.OS !== 'web') {
-    return {
-      time: '',
-      distance: '',
-      splitValue: '',
-    };
-  }
-
   const query = qs.parse(window.location.search.slice(1) || '');
   return {
     time: (query.time || '') as string,
@@ -93,16 +77,18 @@ const update = (action: any) => (state: any) => {
 class PaceCalculator extends PureComponent<Props, State> {
   state: State = getInitialState();
 
-  handlePresetSelect = (key: string) => {
+  handlePresetSelect = (e: React.FormEvent<HTMLSelectElement>) => {
     this.setState(
       update({
         type: 'PRESET_SELECTED',
-        preset: key,
+        preset: e.currentTarget.value,
       })
     );
   };
 
-  handleInput = (type: string) => (value: string) => {
+  handleInput = (type: string) => ({
+    currentTarget: { value },
+  }: React.FormEvent<HTMLInputElement>) => {
     this.setState(update({ type, value }));
   };
 
@@ -125,10 +111,9 @@ class PaceCalculator extends PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (
-      Platform.OS === 'web' &&
-      (this.state.time !== prevState.time ||
-        this.state.distance !== prevState.distance ||
-        this.state.splitValue !== prevState.splitValue)
+      this.state.time !== prevState.time ||
+      this.state.distance !== prevState.distance ||
+      this.state.splitValue !== prevState.splitValue
     ) {
       this.updateQueryParams();
     }
@@ -140,23 +125,15 @@ class PaceCalculator extends PureComponent<Props, State> {
     const splitValue = parseSeconds(this.state.splitValue);
 
     return (
-      <View>
-        <View style={{ marginBottom: 30 }}>
-          <View style={{ paddingVertical: 10 }}>
-            <Text style={[styles.text, styles.textBold, styles.textLarge]}>
-              Enter a goal
-            </Text>
-          </View>
+      <div>
+        <div style={{ marginBottom: 30 }}>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>Enter a goal</div>
           <Card>
-            <View style={{ padding: 20 }}>
-              <View
-                style={{ marginBottom: 15 }}
-                accessible
-                accessibilityLabel="Distance"
-              >
+            <div style={{ padding: 20 }}>
+              <div style={{ marginBottom: 15 }}>
                 <Label>{'Distance 👟'}</Label>
-                <TextInput
-                  style={[styles.textInput]}
+                <input
+                  style={styles.textInput}
                   autoCapitalize="none"
                   autoFocus
                   // @ts-ignore
@@ -164,62 +141,54 @@ class PaceCalculator extends PureComponent<Props, State> {
                   name="distance"
                   placeholder="e.g. a marathon or 1500 m"
                   value={this.state.distance}
-                  onChangeText={this.handleInput('DISTANCE_CHANGED')}
+                  onChange={this.handleInput('DISTANCE_CHANGED')}
                 />
-              </View>
-              <View accessible accessibilityLabel="Time">
+              </div>
+              <div>
                 <Label>{'Time ⏱'}</Label>
-                <TextInput
+                <input
                   autoCapitalize="none"
-                  style={[styles.textInput]}
-                  // @ts-ignore
+                  style={styles.textInput}
                   type="text"
                   name="time"
                   placeholder="e.g. 3:26.00 or 3 hours"
                   value={this.state.time}
-                  onChangeText={this.handleInput('TIME_CHANGED')}
+                  onChange={this.handleInput('TIME_CHANGED')}
                 />
-              </View>
+              </div>
 
-              <View style={{ paddingTop: 40 }}>
+              <div style={{ paddingTop: 40 }}>
                 <Label numberOfLines={1}>
                   Or you can select from our presets
                 </Label>
-              </View>
-              <Picker
-                onValueChange={this.handlePresetSelect}
-                style={styles.picker}
-              >
-                <Picker.Item label="Select a preset" value="" />
+              </div>
+              <select onChange={this.handlePresetSelect} style={styles.picker}>
+                <option value="">Select a preset</option>
                 {PRESETS.presets.map((preset) => {
                   const description = `${preset.event} ${preset.name}`;
                   return (
-                    <Picker.Item
-                      key={preset.id}
-                      label={description}
-                      value={preset.id}
-                    />
+                    <option key={preset.id} value={preset.id}>
+                      {description}
+                    </option>
                   );
                 })}
-              </Picker>
-            </View>
+              </select>
+            </div>
           </Card>
-        </View>
+        </div>
 
-        <View style={{ marginBottom: 30 }}>
-          <View style={{ paddingVertical: 10 }}>
-            <Text style={[styles.text, styles.textBold, styles.textLarge]}>
-              Splits
-            </Text>
-          </View>
+        <div style={{ marginBottom: 30 }}>
+          <div style={{ paddingTop: 10, paddingBottom: 10 }}>Splits</div>
 
           <Card>
-            <View
-              style={[
-                // @ts-ignore
-                (!meters || !seconds) && { filter: 'blur(6px)', opacity: 0.5 },
-                { padding: 20 },
-              ]}
+            <div
+              style={{
+                ...((!meters || !seconds) && {
+                  filter: 'blur(6px)',
+                  opacity: 0.5,
+                }),
+                ...{ padding: 20 },
+              }}
             >
               <SplitCalculator
                 meters={meters}
@@ -227,21 +196,17 @@ class PaceCalculator extends PureComponent<Props, State> {
                 value={splitValue}
                 onChange={this.handleSplitChange}
               />
-            </View>
+            </div>
           </Card>
-        </View>
+        </div>
 
-        <View style={{ paddingVertical: 10 }}>
-          <Text style={[styles.text, styles.textBold, styles.textLarge]}>
-            Timing data
-          </Text>
-        </View>
+        <div>Timing data</div>
 
         {this.props.render({
           meters,
           seconds,
         })}
-      </View>
+      </div>
     );
   }
 }

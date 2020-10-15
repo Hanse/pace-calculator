@@ -1,15 +1,11 @@
-import { Platform, StyleSheet } from 'react-native';
-
 const baseFontSize = 20;
 
-export default StyleSheet.create({
+export default {
   text: {
-    fontFamily: Platform.select({
-      web: 'system-ui, Arial, "Helvetica Neue", Helvetica, sans-serif',
-    }),
+    fontFamily: 'system-ui, Arial, "Helvetica Neue", Helvetica, sans-serif',
     fontSize: baseFontSize,
     color: '#232323',
-    fontWeight: '400',
+    fontWeight: 400,
   },
   textSmall: {
     fontSize: baseFontSize * 0.9,
@@ -31,14 +27,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   textInput: {
-    borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
     borderColor: '#ccc',
-    ...Platform.select({
-      web: {
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      },
-    }),
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     padding: 10,
     borderRadius: 5,
     fontSize: baseFontSize * 1.2,
@@ -52,14 +43,9 @@ export default StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     borderColor: '#ccc',
-    borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
-    ...Platform.select({
-      web: {
-        height: 42,
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      },
-    }),
+    height: 42,
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   },
   summary: {
     backgroundColor: '#2d3d60',
@@ -76,10 +62,6 @@ export default StyleSheet.create({
     padding: 5,
     margin: 5,
     borderRadius: 5,
-    ...Platform.select({
-      web: {
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      },
-    }),
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   },
-});
+};

@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import { Platform, Text, View } from 'react-native';
+import * as React from 'react';
 
 import Card from './Card';
 import { getPace, toHHMMSS, withCommas } from './formatting';
@@ -8,37 +7,28 @@ import styles from './styles';
 const PREDEFINED_LAPS = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
 
 type Props = {
-  meters: number,
-  seconds: number,
+  meters: number;
+  seconds: number;
 };
 
 type SummaryProps = {
-  data: [string, string][],
+  data: [string, string][];
 };
 
 const Summary = ({ data }: SummaryProps) => (
-  <View style={styles.summary}>
+  <div style={styles.summary}>
     {data.map(([key, value]) => (
-      <View key={key} style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ width: '50%' }}>
-          <Text
-            style={[
-              styles.text,
-              styles.textSmall,
-              styles.textBold,
-              { color: '#fff' },
-            ]}
-          >
-            {key}
-          </Text>
-        </View>
-        <Text style={[styles.text, { color: '#fff' }]}>{value}</Text>
-      </View>
+      <div key={key} style={{ flexDirection: 'row' }}>
+        <div style={{ width: '50%' }}>
+          <span>{key}</span>
+        </div>
+        <span style={{ ...styles.text, ...{ color: '#fff' } }}>{value}</span>
+      </div>
     ))}
-  </View>
+  </div>
 );
 
-class PaceCalculatorView extends PureComponent<Props> {
+class PaceCalculatorView extends React.PureComponent<Props> {
   render() {
     const { meters, seconds } = this.props;
 
@@ -46,9 +36,10 @@ class PaceCalculatorView extends PureComponent<Props> {
 
     return (
       <Card>
-        <View
-          // @ts-ignore
-          style={[isMissingInputs && { filter: 'blur(6px)', opacity: 0.5 }]}
+        <div
+          style={
+            isMissingInputs ? { filter: 'blur(6px)', opacity: 0.5 } : undefined
+          }
         >
           <Summary
             data={[
@@ -57,84 +48,69 @@ class PaceCalculatorView extends PureComponent<Props> {
               ['Required pace', getPace(meters, seconds)],
             ]}
           />
-          <View style={{ padding: 20 }}>
-            <View style={[styles.row, { padding: 8 }]}>
-              <View style={[{ flex: 1 }]}>
-                <Text style={[styles.text, styles.textBold]}>Lap</Text>
-              </View>
-              <View style={[{ flex: 1 }]}>
-                <Text style={[styles.text, styles.textBold]}>Time</Text>
-              </View>
-            </View>
+          <div style={{ padding: 20 }}>
+            <div>
+              <strong>Lap</strong>
+              <strong>Time</strong>
+            </div>
             {PREDEFINED_LAPS.map((distance, index) => {
               const scaledSeconds = (seconds * distance) / (meters || 1);
+
               const highlight = (value: number) =>
-                distance === value && { fontWeight: '700' };
+                distance === value ? { fontWeight: 700 } : undefined;
 
               return (
-                <View
+                <div
                   key={index}
-                  style={[
-                    {
+                  style={{
+                    ...{
                       flexDirection: 'row',
                     },
-                    index % 2 === 0 && {
+                    ...(index % 2 === 0 && {
                       backgroundColor: '#f3f3f3',
-                    },
-                    { padding: 12 },
-                  ]}
+                    }),
+                    ...{ padding: 12 },
+                  }}
                 >
-                  <View style={{ flex: 1 }}>
-                    <Text
-                      // @ts-ignore
-                      style={[styles.text, styles.textSmall, highlight(1000)]}
-                    >
+                  <div style={{ flex: 1 }}>
+                    <span style={highlight(1000)}>
                       {withCommas(distance)} m
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
+                    </span>
+                  </div>
+                  <div style={{ flex: 1 }}>
                     {/*@ts-ignore*/}
-                    <Text
-                      style={[
-                        styles.text,
-                        styles.textSmall,
-                        highlight(1000),
-                        Platform.select({
-                          web: { cursor: 'help' },
-                        }),
-                      ]}
+                    <span
+                      style={highlight(1000)}
                       title={`${scaledSeconds.toFixed(2)} seconds`}
                     >
-                      <Text style={{ color: '#ccc' }}>~ </Text>
+                      <span style={{ color: '#ccc' }}>~ </span>
                       {toHHMMSS(scaledSeconds)}
-                    </Text>
-                  </View>
-                </View>
+                    </span>
+                  </div>
+                </div>
               );
             })}
-          </View>
-        </View>
+          </div>
+        </div>
 
-        <View style={{ padding: 20 }}>
-          <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
+        <div style={{ padding: 20 }}>
+          <p>
             This nifty pace calculator shows how fast you need to run on average
             to achieve your time-goals. The table shows required lap-times to
             finish in the desired total time.{' '}
-            <Text style={{ fontStyle: 'italic' }}>
-              It does not show estimated equivalent race performances.
-            </Text>
-          </Text>
+            <em>It does not show estimated equivalent race performances.</em>
+          </p>
 
-          <Text style={[styles.paragraph, styles.text, styles.textSmall]}>
+          <p>
             Use this tool to go figure out how fast you must run or see how
             incredibly fast people have managed to run various distances.{' '}
-            <Text style={{ fontStyle: 'italic' }}>
+            <em>
               If you are running on a regular track, the time in the 400 m row
               should match your watch {'⌚️'} after each lap to be sure you make
               it in time.
-            </Text>
-          </Text>
-        </View>
+            </em>
+          </p>
+        </div>
       </Card>
     );
   }

@@ -1,16 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
 
 import { getPace, toHHMMSS, withCommas } from './formatting';
 import Media from './Media';
 import styles from './styles';
 
 type RangeInputProps = {
-  value: number,
-  min: number,
-  max: number,
-  onChange?: (event: Object) => void,
-  disabled?: boolean,
+  value: number;
+  min: number;
+  max: number;
+  onChange?: (event: Object) => void;
+  disabled?: boolean;
 };
 
 const clamp = (value: number, min: number, max: number) =>
@@ -26,15 +25,15 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
       {(isMobile) =>
         isMobile ? (
           onChange ? (
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity style={styles.button} onPress={update(-1)}>
-                <Text style={{ fontSize: 26 }}>-</Text>
-              </TouchableOpacity>
+            <div style={{ flexDirection: 'row' }}>
+              <button onClick={update(-1)}>
+                <span style={{ fontSize: 26 }}>-</span>
+              </button>
 
-              <TouchableOpacity style={styles.button} onPress={update(1)}>
-                <Text style={{ fontSize: 26 }}>+</Text>
-              </TouchableOpacity>
-            </View>
+              <button style={styles.button} onClick={update(1)}>
+                <span style={{ fontSize: 26 }}>+</span>
+              </button>
+            </div>
           ) : null
         ) : (
           <input
@@ -52,10 +51,10 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
 }
 
 type Props = {
-  meters: number,
-  seconds: number,
-  onChange: (e: any) => any,
-  value: number,
+  meters: number;
+  seconds: number;
+  onChange: (e: any) => any;
+  value: number;
 };
 
 function getColor(value: number) {
@@ -72,12 +71,12 @@ class SplitCalculator extends PureComponent<Props> {
     return (
       <Media query="(max-width: 768px)" defaultMatches={true}>
         {(isMobile) => (
-          <View
+          <div
             style={{
               flexDirection: isMobile ? 'column' : 'row',
             }}
           >
-            <View
+            <div
               style={{
                 position: 'absolute',
                 right: 0,
@@ -87,47 +86,31 @@ class SplitCalculator extends PureComponent<Props> {
                 backgroundColor: getColor(diff / this.props.seconds),
               }}
             />
-            <View style={{ flex: 1, padding: 10 }}>
-              <Text
-                style={[styles.text, styles.textBold, { paddingBottom: 6 }]}
-              >
-                <Text style={{ color: '#999' }}>1st</Text>{' '}
-                {withCommas(this.props.meters / 2)} m,{' '}
-                {toHHMMSS(firstSeconds, 'normal')}
-              </Text>
-              <Text style={[styles.text, styles.textSmall]}>
-                {getPace(this.props.meters / 2, this.props.value)}
-              </Text>
-              <View style={{ paddingVertical: 10 }}>
-                <RangeInput
-                  value={this.props.value}
-                  min={0}
-                  max={this.props.seconds}
-                  onChange={this.props.onChange}
-                />
-              </View>
-            </View>
-            <View style={{ flex: 1, padding: 10 }}>
-              <Text
-                style={[styles.text, styles.textBold, { paddingBottom: 6 }]}
-              >
-                <Text style={{ color: '#999' }}>2nd</Text>{' '}
-                {withCommas(this.props.meters / 2)} m,{' '}
-                {toHHMMSS(lastSeconds, 'normal')}
-              </Text>
-              <Text style={[styles.text, styles.textSmall]}>
-                {getPace(this.props.meters / 2, lastSeconds)}
-              </Text>
-              <View style={{ paddingVertical: 10 }}>
-                <RangeInput
-                  value={lastSeconds}
-                  min={0}
-                  disabled
-                  max={this.props.seconds}
-                />
-              </View>
-            </View>
-          </View>
+            <div>
+              <span style={{ color: '#999' }}>1st</span>{' '}
+              {withCommas(this.props.meters / 2)} m,{' '}
+              {toHHMMSS(firstSeconds, 'normal')}
+              {getPace(this.props.meters / 2, this.props.value)}
+              <RangeInput
+                value={this.props.value}
+                min={0}
+                max={this.props.seconds}
+                onChange={this.props.onChange}
+              />
+            </div>
+            <div style={{ flex: 1, padding: 10 }}>
+              <span style={{ color: '#999' }}>2nd</span>{' '}
+              {withCommas(this.props.meters / 2)} m,{' '}
+              {toHHMMSS(lastSeconds, 'normal')}
+              {getPace(this.props.meters / 2, lastSeconds)}
+              <RangeInput
+                value={lastSeconds}
+                min={0}
+                disabled
+                max={this.props.seconds}
+              />
+            </div>
+          </div>
         )}
       </Media>
     );
