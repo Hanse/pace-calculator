@@ -1,19 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
-type Props = {
-  style?: any,
-  children: React.ReactNode,
-};
+interface CardProps extends React.HTMLProps<HTMLDivElement> {}
 
-export default function Card({ style, ...props }: Props) {
-  return <div style={{ ...styles.card, ...style }} {...props} />;
+export default function Card(props: CardProps) {
+  return <div {...props} />;
 }
-
-const styles = {
-  card: {
-    padding: 0,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    boxShadow: '0 0 30px rgba(0, 0, 0, 0.1)',
-  },
-};

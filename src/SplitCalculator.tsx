@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 
 import { getPace, toHHMMSS, withCommas } from './formatting';
 import Media from './Media';
-import styles from './styles';
 
 type RangeInputProps = {
   value: number;
@@ -26,13 +25,8 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
         isMobile ? (
           onChange ? (
             <div style={{ flexDirection: 'row' }}>
-              <button onClick={update(-1)}>
-                <span style={{ fontSize: 26 }}>-</span>
-              </button>
-
-              <button style={styles.button} onClick={update(1)}>
-                <span style={{ fontSize: 26 }}>+</span>
-              </button>
+              <button onClick={update(-1)}>-</button>
+              <button onClick={update(1)}>+</button>
             </div>
           ) : null
         ) : (
@@ -61,60 +55,51 @@ function getColor(value: number) {
   return value <= 0 ? '#2ecc71' : '#e74c3c';
 }
 
-class SplitCalculator extends PureComponent<Props> {
-  render() {
-    const firstSeconds = this.props.value;
-    const lastSeconds = this.props.seconds - this.props.value;
+function SplitCalculator({ value, seconds, meters, onChange }: Props) {
+  const firstSeconds = value;
+  const lastSeconds = seconds - value;
 
-    const diff = lastSeconds - firstSeconds;
+  const diff = lastSeconds - firstSeconds;
 
-    return (
-      <Media query="(max-width: 768px)" defaultMatches={true}>
-        {(isMobile) => (
+  return (
+    <Media query="(max-width: 768px)" defaultMatches={true}>
+      {(isMobile) => (
+        <div
+          style={{
+            flexDirection: isMobile ? 'column' : 'row',
+          }}
+        >
           <div
             style={{
-              flexDirection: isMobile ? 'column' : 'row',
+              position: 'absolute',
+              right: 0,
+              width: 24,
+              height: 24,
+              borderRadius: 12,
+              backgroundColor: getColor(diff / seconds),
             }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                right: 0,
-                width: 24,
-                height: 24,
-                borderRadius: 12,
-                backgroundColor: getColor(diff / this.props.seconds),
-              }}
+          />
+          <div>
+            <span style={{ color: '#999' }}>1st</span> {withCommas(meters / 2)}{' '}
+            m, {toHHMMSS(firstSeconds, 'normal')}
+            {getPace(meters / 2, value)}
+            <RangeInput
+              value={value}
+              min={0}
+              max={seconds}
+              onChange={onChange}
             />
-            <div>
-              <span style={{ color: '#999' }}>1st</span>{' '}
-              {withCommas(this.props.meters / 2)} m,{' '}
-              {toHHMMSS(firstSeconds, 'normal')}
-              {getPace(this.props.meters / 2, this.props.value)}
-              <RangeInput
-                value={this.props.value}
-                min={0}
-                max={this.props.seconds}
-                onChange={this.props.onChange}
-              />
-            </div>
-            <div style={{ flex: 1, padding: 10 }}>
-              <span style={{ color: '#999' }}>2nd</span>{' '}
-              {withCommas(this.props.meters / 2)} m,{' '}
-              {toHHMMSS(lastSeconds, 'normal')}
-              {getPace(this.props.meters / 2, lastSeconds)}
-              <RangeInput
-                value={lastSeconds}
-                min={0}
-                disabled
-                max={this.props.seconds}
-              />
-            </div>
           </div>
-        )}
-      </Media>
-    );
-  }
+          <div style={{ flex: 1, padding: 10 }}>
+            <span style={{ color: '#999' }}>2nd</span> {withCommas(meters / 2)}{' '}
+            m, {toHHMMSS(lastSeconds, 'normal')}
+            {getPace(meters / 2, lastSeconds)}
+            <RangeInput value={lastSeconds} min={0} disabled max={seconds} />
+          </div>
+        </div>
+      )}
+    </Media>
+  );
 }
 
 export default SplitCalculator;

@@ -1,30 +1,22 @@
-import debounce from 'debounce';
 import qs from 'qs';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 
 import Card from './Card';
 import PRESETS from './data.json';
 import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
-import styles from './styles';
 
-const Label: React.FunctionComponent<any> = ({ children, ...props }) => (
-  <span style={{ color: '#555' }} {...props}>
-    {children}
-  </span>
-);
-
-type Props = {
+interface Props {
   render: (props: { meters: number; seconds: number }) => React.ReactNode;
-};
+}
 
-type State = {
+interface State {
   time: string;
   distance: string;
   splitValue: string;
-};
+}
 
-function getInitialState() {
+function getInitialState(): State {
   const query = qs.parse(window.location.search.slice(1) || '');
   return {
     time: (query.time || '') as string,
@@ -33,7 +25,25 @@ function getInitialState() {
   };
 }
 
-const update = (action: any) => (state: any) => {
+type Action =
+  | {
+      type: 'PRESET_SELECTED';
+      preset: string;
+    }
+  | {
+      type: 'DISTANCE_CHANGED';
+      value: string;
+    }
+  | {
+      type: 'TIME_CHANGED';
+      value: string;
+    }
+  | {
+      type: 'SPLIT_CHANGED';
+      value: string;
+    };
+
+function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'PRESET_SELECTED': {
       const key = action.preset;
@@ -72,142 +82,125 @@ const update = (action: any) => (state: any) => {
     default:
       return state;
   }
-};
+}
 
-class PaceCalculator extends PureComponent<Props, State> {
-  state: State = getInitialState();
+function PaceCalculator({ render }: Props) {
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    undefined,
+    getInitialState
+  );
 
-  handlePresetSelect = (e: React.FormEvent<HTMLSelectElement>) => {
-    this.setState(
-      update({
-        type: 'PRESET_SELECTED',
-        preset: e.currentTarget.value,
-      })
-    );
-  };
+  const { time, distance, splitValue } = state;
 
-  handleInput = (type: string) => ({
-    currentTarget: { value },
-  }: React.FormEvent<HTMLInputElement>) => {
-    this.setState(update({ type, value }));
-  };
-
-  handleSplitChange = (e: any) => {
-    this.setState(
-      update({
-        type: 'SPLIT_CHANGED',
-        value: e.target.value,
-      })
-    );
-  };
-
-  updateQueryParams = debounce(() => {
+  React.useEffect(() => {
     (global as any).history.pushState(
       null,
       null,
-      `?time=${this.state.time}&distance=${this.state.distance}&splitValue=${this.state.splitValue}`
+      `?time=${time}&distance=${distance}&splitValue=${splitValue}`
     );
-  }, 300);
+  }, [time, distance, splitValue]);
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    if (
-      this.state.time !== prevState.time ||
-      this.state.distance !== prevState.distance ||
-      this.state.splitValue !== prevState.splitValue
-    ) {
-      this.updateQueryParams();
-    }
-  }
+  const handlePresetSelect: React.FormEventHandler<HTMLSelectElement> = (e) => {
+    dispatch({
+      type: 'PRESET_SELECTED',
+      preset: e.currentTarget.value,
+    });
+  };
 
-  render() {
-    const meters = parseMeters(this.state.distance);
-    const seconds = parseSeconds(this.state.time);
-    const splitValue = parseSeconds(this.state.splitValue);
+  const handleInput = (
+    type: 'SPLIT_CHANGED' | 'DISTANCE_CHANGED' | 'TIME_CHANGED'
+  ) => ({ currentTarget: { value } }: React.FormEvent<HTMLInputElement>) => {
+    dispatch({ type, value });
+  };
 
-    return (
-      <div>
-        <div style={{ marginBottom: 30 }}>
-          <div style={{ paddingTop: 10, paddingBottom: 10 }}>Enter a goal</div>
-          <Card>
-            <div style={{ padding: 20 }}>
-              <div style={{ marginBottom: 15 }}>
-                <Label>{'Distance 👟'}</Label>
-                <input
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  autoFocus
-                  // @ts-ignore
-                  type="text"
-                  name="distance"
-                  placeholder="e.g. a marathon or 1500 m"
-                  value={this.state.distance}
-                  onChange={this.handleInput('DISTANCE_CHANGED')}
-                />
-              </div>
-              <div>
-                <Label>{'Time ⏱'}</Label>
-                <input
-                  autoCapitalize="none"
-                  style={styles.textInput}
-                  type="text"
-                  name="time"
-                  placeholder="e.g. 3:26.00 or 3 hours"
-                  value={this.state.time}
-                  onChange={this.handleInput('TIME_CHANGED')}
-                />
-              </div>
+  const handleSplitChange = (e: any) => {
+    dispatch({
+      type: 'SPLIT_CHANGED',
+      value: e.target.value,
+    });
+  };
 
-              <div style={{ paddingTop: 40 }}>
-                <Label numberOfLines={1}>
-                  Or you can select from our presets
-                </Label>
-              </div>
-              <select onChange={this.handlePresetSelect} style={styles.picker}>
-                <option value="">Select a preset</option>
-                {PRESETS.presets.map((preset) => {
-                  const description = `${preset.event} ${preset.name}`;
-                  return (
-                    <option key={preset.id} value={preset.id}>
-                      {description}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </Card>
-        </div>
+  const meters = parseMeters(distance);
+  const seconds = parseSeconds(time);
+  const splitValueP = parseSeconds(splitValue);
 
-        <div style={{ marginBottom: 30 }}>
-          <div style={{ paddingTop: 10, paddingBottom: 10 }}>Splits</div>
+  return (
+    <div>
+      <section>
+        <h2>Enter a goal</h2>
+        <Card>
+          <div>
+            <label htmlFor="distance">{'Distance 👟'}</label>
+            <input
+              id="distance"
+              autoCapitalize="none"
+              autoFocus
+              type="text"
+              name="distance"
+              placeholder="e.g. a marathon or 1500 m"
+              value={distance}
+              onChange={handleInput('DISTANCE_CHANGED')}
+            />
+          </div>
+          <div>
+            <label htmlFor="time">{'Time ⏱'}</label>
+            <input
+              id="time"
+              autoCapitalize="none"
+              type="text"
+              name="time"
+              placeholder="e.g. 3:26.00 or 3 hours"
+              value={time}
+              onChange={handleInput('TIME_CHANGED')}
+            />
+          </div>
 
-          <Card>
-            <div
-              style={{
-                ...((!meters || !seconds) && {
-                  filter: 'blur(6px)',
-                  opacity: 0.5,
-                }),
-                ...{ padding: 20 },
-              }}
-            >
-              <SplitCalculator
-                meters={meters}
-                seconds={seconds}
-                value={splitValue}
-                onChange={this.handleSplitChange}
-              />
-            </div>
-          </Card>
-        </div>
+          <h3>Or you can select from our presets</h3>
 
-        <div>Timing data</div>
+          <select onChange={handlePresetSelect}>
+            <option value="">Select a preset</option>
+            {PRESETS.presets.map((preset) => {
+              const description = `${preset.event} ${preset.name}`;
+              return (
+                <option key={preset.id} value={preset.id}>
+                  {description}
+                </option>
+              );
+            })}
+          </select>
+        </Card>
+      </section>
 
-        {this.props.render({
-          meters,
-          seconds,
-        })}
-      </div>
-    );
-  }
+      <section>
+        <h2>Splits</h2>
+        <Card>
+          <div
+            style={{
+              ...((!meters || !seconds) && {
+                filter: 'blur(6px)',
+                opacity: 0.5,
+              }),
+            }}
+          >
+            <SplitCalculator
+              meters={meters}
+              seconds={seconds}
+              value={splitValueP}
+              onChange={handleSplitChange}
+            />
+          </div>
+        </Card>
+      </section>
+
+      <h2>Timing data</h2>
+
+      {render({
+        meters,
+        seconds,
+      })}
+    </div>
+  );
 }
+
 export default PaceCalculator;

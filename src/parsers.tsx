@@ -1,4 +1,4 @@
-import timestring from './timestring';
+import * as timestring from './timestring';
 
 const hundreds = (value: string | null | undefined) => {
   if (!value) {
@@ -43,7 +43,7 @@ const TIMES: Rule[] = [
     /.*/,
     (match) => {
       try {
-        return timestring(match[0].replace(/,/g, '.'));
+        return timestring.parse(match[0].replace(/,/g, '.'));
       } catch (error) {
         return 0;
       }

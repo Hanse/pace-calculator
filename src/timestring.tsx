@@ -11,7 +11,7 @@ const UNITS = {
   h: /^(h|ho|hou|hour|hours|hr|hrs)(.+)?$/i,
 };
 
-export default function parse(input: string) {
+export function parse(input: string) {
   const groups = input
     .toLowerCase()
     .replace(/[^.\w+-]+/g, '')

@@ -1,4 +1,4 @@
-import ts from '../timestring';
+import { parse as ts } from '../timestring';
 
 it('convert timestrings to seconds', () => {
   expect(ts('1m')).toEqual(60);
