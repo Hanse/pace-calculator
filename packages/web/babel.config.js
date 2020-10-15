@@ -4,11 +4,11 @@ module.exports = {
       '@babel/preset-env',
       {
         useBuiltIns: false,
-        modules: false
-      }
+        modules: false,
+      },
     ],
     '@babel/preset-react',
-    '@babel/preset-flow'
+    '@babel/preset-typescript',
   ],
-  plugins: ['@babel/plugin-proposal-class-properties']
+  plugins: ['@babel/plugin-proposal-class-properties'],
 };
