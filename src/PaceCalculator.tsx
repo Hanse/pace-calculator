@@ -3,12 +3,9 @@ import * as React from 'react';
 
 import Card from './Card';
 import PRESETS from './data.json';
+import PaceCalculatorTimingData from './PaceCalculatorTimingData';
 import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
-
-interface Props {
-  render: (props: { meters: number; seconds: number }) => React.ReactNode;
-}
 
 interface State {
   time: string;
@@ -84,7 +81,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-function PaceCalculator({ render }: Props) {
+function PaceCalculator() {
   const [state, dispatch] = React.useReducer(
     reducer,
     undefined,
@@ -123,10 +120,10 @@ function PaceCalculator({ render }: Props) {
 
   const meters = parseMeters(distance);
   const seconds = parseSeconds(time);
-  const splitValueP = parseSeconds(splitValue);
+  const splitValueSeconds = parseSeconds(splitValue);
 
   return (
-    <div>
+    <>
       <section>
         <h2>Enter a goal</h2>
         <Card>
@@ -174,32 +171,28 @@ function PaceCalculator({ render }: Props) {
 
       <section>
         <h2>Splits</h2>
-        <Card>
-          <div
-            style={{
-              ...((!meters || !seconds) && {
-                filter: 'blur(6px)',
-                opacity: 0.5,
-              }),
-            }}
-          >
-            <SplitCalculator
-              meters={meters}
-              seconds={seconds}
-              value={splitValueP}
-              onChange={handleSplitChange}
-            />
-          </div>
+        <Card
+          style={{
+            ...((!meters || !seconds) && {
+              filter: 'blur(6px)',
+              opacity: 0.5,
+            }),
+          }}
+        >
+          <SplitCalculator
+            meters={meters}
+            seconds={seconds}
+            value={splitValueSeconds}
+            onChange={handleSplitChange}
+          />
         </Card>
       </section>
 
-      <h2>Timing data</h2>
-
-      {render({
-        meters,
-        seconds,
-      })}
-    </div>
+      <section>
+        <h2>Timing data</h2>
+        <PaceCalculatorTimingData meters={meters} seconds={seconds} />
+      </section>
+    </>
   );
 }
 

@@ -22,12 +22,15 @@ const Summary = ({ data }: SummaryProps) => (
   </div>
 );
 
-interface PaceCalculatorViewProps {
+interface PaceCalculatorTimingDataProps {
   meters: number;
   seconds: number;
 }
 
-function PaceCalculatorView({ meters, seconds }: PaceCalculatorViewProps) {
+function PaceCalculatorTimingData({
+  meters,
+  seconds,
+}: PaceCalculatorTimingDataProps) {
   const isMissingInputs = !meters || !seconds;
 
   return (
@@ -44,7 +47,7 @@ function PaceCalculatorView({ meters, seconds }: PaceCalculatorViewProps) {
             ['Required pace', getPace(meters, seconds)],
           ]}
         />
-        <div style={{ padding: 20 }}>
+        <div>
           <div>
             <strong>Lap</strong>
             <strong>Time</strong>
@@ -72,7 +75,6 @@ function PaceCalculatorView({ meters, seconds }: PaceCalculatorViewProps) {
                   <span style={highlight(1000)}>{withCommas(distance)} m</span>
                 </div>
                 <div style={{ flex: 1 }}>
-                  {/*@ts-ignore*/}
                   <span
                     style={highlight(1000)}
                     title={`${scaledSeconds.toFixed(2)} seconds`}
@@ -87,7 +89,7 @@ function PaceCalculatorView({ meters, seconds }: PaceCalculatorViewProps) {
         </div>
       </div>
 
-      <div style={{ padding: 20 }}>
+      <div>
         <p>
           This nifty pace calculator shows how fast you need to run on average
           to achieve your time-goals. The table shows required lap-times to
@@ -109,4 +111,4 @@ function PaceCalculatorView({ meters, seconds }: PaceCalculatorViewProps) {
   );
 }
 
-export default PaceCalculatorView;
+export default PaceCalculatorTimingData;

@@ -7,7 +7,7 @@ type RangeInputProps = {
   value: number;
   min: number;
   max: number;
-  onChange?: (event: Object) => void;
+  onChange?: (event: { target: { value: string } }) => void;
   disabled?: boolean;
 };
 
@@ -44,21 +44,25 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
   );
 }
 
-type Props = {
+interface SplitCalculatorProps {
   meters: number;
   seconds: number;
-  onChange: (e: any) => any;
+  onChange: (e: { target: { value: string } }) => void;
   value: number;
-};
+}
 
 function getColor(value: number) {
   return value <= 0 ? '#2ecc71' : '#e74c3c';
 }
 
-function SplitCalculator({ value, seconds, meters, onChange }: Props) {
+function SplitCalculator({
+  value,
+  seconds,
+  meters,
+  onChange,
+}: SplitCalculatorProps) {
   const firstSeconds = value;
   const lastSeconds = seconds - value;
-
   const diff = lastSeconds - firstSeconds;
 
   return (
@@ -80,9 +84,11 @@ function SplitCalculator({ value, seconds, meters, onChange }: Props) {
             }}
           />
           <div>
-            <span style={{ color: '#999' }}>1st</span> {withCommas(meters / 2)}{' '}
-            m, {toHHMMSS(firstSeconds, 'normal')}
-            {getPace(meters / 2, value)}
+            <span>
+              <span style={{ color: '#999' }}>1st</span>{' '}
+              {withCommas(meters / 2)} m, {toHHMMSS(firstSeconds, 'normal')}
+            </span>
+            <span>{getPace(meters / 2, value)}</span>
             <RangeInput
               value={value}
               min={0}
@@ -90,10 +96,12 @@ function SplitCalculator({ value, seconds, meters, onChange }: Props) {
               onChange={onChange}
             />
           </div>
-          <div style={{ flex: 1, padding: 10 }}>
-            <span style={{ color: '#999' }}>2nd</span> {withCommas(meters / 2)}{' '}
-            m, {toHHMMSS(lastSeconds, 'normal')}
-            {getPace(meters / 2, lastSeconds)}
+          <div>
+            <span>
+              <span style={{ color: '#999' }}>2nd</span>{' '}
+              {withCommas(meters / 2)} m, {toHHMMSS(lastSeconds, 'normal')}
+            </span>
+            <span>{getPace(meters / 2, lastSeconds)}</span>
             <RangeInput value={lastSeconds} min={0} disabled max={seconds} />
           </div>
         </div>

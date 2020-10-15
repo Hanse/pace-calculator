@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import PaceCalculatorInputController from './PaceCalculatorInputController';
-import PaceCalculatorView from './PaceCalculatorView';
+import PaceCalculator from './PaceCalculator';
 
 function App() {
   return (
@@ -11,11 +10,7 @@ function App() {
       </header>
 
       <main>
-        <PaceCalculatorInputController
-          render={({ meters, seconds }) => (
-            <PaceCalculatorView {...{ meters, seconds }} />
-          )}
-        />
+        <PaceCalculator />
       </main>
 
       <footer>
