@@ -1,4 +1,3 @@
-import qs from 'qs';
 import * as React from 'react';
 
 import Card from './Card';
@@ -14,7 +13,10 @@ interface State {
 }
 
 function getInitialState(): State {
-  const query = qs.parse(window.location.search.slice(1) || '');
+  const query = Object.fromEntries(
+    new URLSearchParams(window.location.search.slice(1))
+  );
+
   return {
     time: (query.time || '') as string,
     distance: (query.distance || '') as string,

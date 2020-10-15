@@ -4,7 +4,7 @@ import PaceCalculator from './PaceCalculator';
 
 function App() {
   return (
-    <div>
+    <>
       <header>
         <h1>Snittfart</h1>
       </header>
@@ -18,7 +18,7 @@ function App() {
         <a href="mailto:feedback@koren.im">feedback@koren.im</a> or to{' '}
         <a href="https://twitter.com/Hanse">@Hanse</a> on Twitter
       </footer>
-    </div>
+    </>
   );
 }
 

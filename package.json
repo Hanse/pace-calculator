@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "debounce": "^1.2.0",
+    "@devmoods/ui": "^1.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },
@@ -26,12 +26,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/debounce": "^1.2.0",
     "@types/jest": "^26.0.14",
-    "@types/qs": "^6.9.5",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
-    "react-media": "^2.0.0-rc.1",
     "react-scripts": "^3.4.3",
     "typescript": "^3.9.7"
   }
