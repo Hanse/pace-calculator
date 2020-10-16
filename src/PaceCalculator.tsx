@@ -1,3 +1,11 @@
+import {
+  Input,
+  Select,
+  SelectOption,
+  Stack,
+  useResponsiveValue,
+  useThrottle,
+} from '@devmoods/ui';
 import * as React from 'react';
 
 import Card from './Card';
@@ -83,6 +91,21 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+const presetOptions = [['', 'Select a preset'] as SelectOption].concat(
+  PRESETS.presets.map((preset) => {
+    const description = `${preset.event} ${preset.name}`;
+    return [preset.id, description] as SelectOption;
+  })
+);
+
+function useLocationState(query: string) {
+  const throttledQuery = useThrottle(query, 500);
+
+  React.useEffect(() => {
+    (global as any).history.pushState(null, null, throttledQuery);
+  }, [throttledQuery]);
+}
+
 function PaceCalculator() {
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -92,13 +115,15 @@ function PaceCalculator() {
 
   const { time, distance, splitValue } = state;
 
-  React.useEffect(() => {
-    (global as any).history.pushState(
-      null,
-      null,
-      `?time=${time}&distance=${distance}&splitValue=${splitValue}`
-    );
-  }, [time, distance, splitValue]);
+  useLocationState(
+    `?time=${time}&distance=${distance}&splitValue=${splitValue}`
+  );
+
+  const presetTitle = useResponsiveValue([
+    'Or a preset',
+    'Or you can select from our presets',
+    'Or you can select from our presets',
+  ]);
 
   const handlePresetSelect: React.FormEventHandler<HTMLSelectElement> = (e) => {
     dispatch({
@@ -125,50 +150,37 @@ function PaceCalculator() {
   const splitValueSeconds = parseSeconds(splitValue);
 
   return (
-    <>
+    <Stack spacing="xl">
       <section>
         <h2>Enter a goal</h2>
-        <Card>
-          <div>
-            <label htmlFor="distance">{'Distance 👟'}</label>
-            <input
-              id="distance"
-              autoCapitalize="none"
-              autoFocus
-              type="text"
-              name="distance"
-              placeholder="e.g. a marathon or 1500 m"
-              value={distance}
-              onChange={handleInput('DISTANCE_CHANGED')}
-            />
-          </div>
-          <div>
-            <label htmlFor="time">{'Time ⏱'}</label>
-            <input
-              id="time"
-              autoCapitalize="none"
-              type="text"
-              name="time"
-              placeholder="e.g. 3:26.00 or 3 hours"
-              value={time}
-              onChange={handleInput('TIME_CHANGED')}
-            />
-          </div>
+        <Stack spacing="m" className="card dmk-margin-top-s dmk-padding-m">
+          <Input
+            label={'Distance 👟'}
+            id="distance"
+            autoCapitalize="none"
+            autoFocus
+            type="text"
+            name="distance"
+            placeholder="e.g. a marathon or 1500 m"
+            value={distance}
+            onChange={handleInput('DISTANCE_CHANGED')}
+          />
 
-          <h3>Or you can select from our presets</h3>
+          <Input
+            label={'Time ⏱'}
+            id="time"
+            autoCapitalize="none"
+            type="text"
+            name="time"
+            placeholder="e.g. 3:26.00 or 3 hours"
+            value={time}
+            onChange={handleInput('TIME_CHANGED')}
+          />
 
-          <select onChange={handlePresetSelect}>
-            <option value="">Select a preset</option>
-            {PRESETS.presets.map((preset) => {
-              const description = `${preset.event} ${preset.name}`;
-              return (
-                <option key={preset.id} value={preset.id}>
-                  {description}
-                </option>
-              );
-            })}
-          </select>
-        </Card>
+          <h3>{presetTitle}</h3>
+
+          <Select onChange={handlePresetSelect} options={presetOptions} />
+        </Stack>
       </section>
 
       <section>
@@ -180,6 +192,7 @@ function PaceCalculator() {
               opacity: 0.5,
             }),
           }}
+          className="card dmk-margin-top-s dmk-padding-m"
         >
           <SplitCalculator
             meters={meters}
@@ -192,9 +205,38 @@ function PaceCalculator() {
 
       <section>
         <h2>Timing data</h2>
-        <PaceCalculatorTimingData meters={meters} seconds={seconds} />
+        <Card
+          style={{
+            ...((!meters || !seconds) && {
+              filter: 'blur(6px)',
+              opacity: 0.5,
+            }),
+          }}
+          className="card dmk-margin-top-s"
+        >
+          <PaceCalculatorTimingData meters={meters} seconds={seconds} />
+        </Card>
       </section>
-    </>
+
+      <section className="about">
+        <p>
+          This nifty pace calculator shows how fast you need to run on average
+          to achieve your time-goals. The table shows required lap-times to
+          finish in the desired total time.{' '}
+          <em>It does not show estimated equivalent race performances.</em>
+        </p>
+
+        <p>
+          Use this tool to go figure out how fast you must run or see how
+          incredibly fast people have managed to run various distances.{' '}
+          <em>
+            If you are running on a regular track, the time in the 400 m row
+            should match your watch {'⌚️'} after each lap to be sure you make
+            it in time.
+          </em>
+        </p>
+      </section>
+    </Stack>
   );
 }
 

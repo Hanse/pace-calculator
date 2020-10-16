@@ -1,4 +1,4 @@
-import { useMedia } from '@devmoods/ui';
+import { Button, Stack, useMedia } from '@devmoods/ui';
 import * as React from 'react';
 
 import { getPace, toHHMMSS, withCommas } from './formatting';
@@ -26,10 +26,14 @@ function RangeInput({ value, min, max, onChange, disabled }: RangeInputProps) {
     <>
       {isMobile ? (
         onChange ? (
-          <div style={{ flexDirection: 'row' }}>
-            <button onClick={update(-1)}>-</button>
-            <button onClick={update(1)}>+</button>
-          </div>
+          <Stack horizontal justifyContent="space-between" marginTop="l">
+            <Button onClick={update(-1)} variant="outlined" style={{ flex: 1 }}>
+              -
+            </Button>
+            <Button onClick={update(1)} variant="outlined" style={{ flex: 1 }}>
+              +
+            </Button>
+          </Stack>
         ) : null
       ) : (
         <input
@@ -69,33 +73,41 @@ function SplitCalculator({
   const isMobile = useMedia('(max-width: 768px)');
 
   return (
-    <div style={{ flexDirection: isMobile ? 'column' : 'row' }}>
+    <div
+      style={{
+        flexDirection: isMobile ? 'column' : 'row',
+        position: 'relative',
+      }}
+    >
       <div
         style={{
           position: 'absolute',
-          right: 0,
+          right: -8,
+          top: -8,
           width: 24,
           height: 24,
           borderRadius: 12,
           backgroundColor: getColor(diff / seconds),
         }}
       />
-      <div>
-        <span>
-          <span style={{ color: '#999' }}>1st</span> {withCommas(meters / 2)} m,{' '}
-          {toHHMMSS(firstSeconds, 'normal')}
-        </span>
-        <span>{getPace(meters / 2, value)}</span>
-        <RangeInput value={value} min={0} max={seconds} onChange={onChange} />
-      </div>
-      <div>
-        <span>
-          <span style={{ color: '#999' }}>2nd</span> {withCommas(meters / 2)} m,{' '}
-          {toHHMMSS(lastSeconds, 'normal')}
-        </span>
-        <span>{getPace(meters / 2, lastSeconds)}</span>
-        <RangeInput value={lastSeconds} min={0} disabled max={seconds} />
-      </div>
+      <Stack horizontal>
+        <Stack spacing="xs">
+          <span>
+            <span style={{ color: '#999' }}>1st</span> {withCommas(meters / 2)}{' '}
+            m, {toHHMMSS(firstSeconds, 'normal')}
+          </span>
+          <small>{getPace(meters / 2, value)}</small>
+          <RangeInput value={value} min={0} max={seconds} onChange={onChange} />
+        </Stack>
+        <Stack spacing="xs">
+          <span>
+            <span style={{ color: '#999' }}>2nd</span> {withCommas(meters / 2)}{' '}
+            m, {toHHMMSS(lastSeconds, 'normal')}
+          </span>
+          <small>{getPace(meters / 2, lastSeconds)}</small>
+          <RangeInput value={lastSeconds} min={0} disabled max={seconds} />
+        </Stack>
+      </Stack>
     </div>
   );
 }
