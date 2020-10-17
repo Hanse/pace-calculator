@@ -56,6 +56,10 @@ function reducer(state: State, action: Action): State {
       const key = action.preset;
       const preset = PRESETS.presets.find((preset) => preset.id === key)!;
 
+      if (!preset) {
+        return state;
+      }
+
       const splitValue = preset.halfSplit || `${parseSeconds(preset.time) / 2}`;
 
       return {
