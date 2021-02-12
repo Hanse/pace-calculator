@@ -5,12 +5,11 @@
 }
 
 body {
-  background: #f0f0f0;
+  background: #911d0a;
   font-family: 'Noto Sans TC', sans-serif;
 }
 
 .App-header {
-  background: #911d0a;
   color: white;
 }
 
@@ -42,14 +41,18 @@ body {
   padding: 0 var(--spacing-l);
 }
 
+.content-view {
+  background: #f0f0f0;
+}
+
 main {
   padding: var(--spacing-l);
   max-width: 800px;
 }
 
 footer {
-  padding: var(--spacing-l);
-  color: #666;
+  padding: var(--spacing-xl) var(--spacing-l);
+  color: #999;
 }
 
 .card {
@@ -105,7 +108,7 @@ a {
 }
 
 .about {
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .about p + p {

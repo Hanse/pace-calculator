@@ -7,16 +7,17 @@ function App() {
   return (
     <>
       <Header title="Snittfart" />
+      <div className="content-view">
+        <main>
+          <PaceCalculator />
+        </main>
 
-      <main>
-        <PaceCalculator />
-      </main>
-
-      <footer>
-        Feedback and requests can be sent to{' '}
-        <a href="mailto:post@snittfart.no">post@snittfart.no</a> or to{' '}
-        <a href="https://twitter.com/hanse">@hanse</a> on Twitter
-      </footer>
+        <footer>
+          Feedback and requests can be sent to{' '}
+          <a href="mailto:post@snittfart.no">post@snittfart.no</a> or to{' '}
+          <a href="https://twitter.com/hanse">@hanse</a> on Twitter
+        </footer>
+      </div>
     </>
   );
 }

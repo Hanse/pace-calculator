@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   Input,
   Select,
@@ -8,11 +6,12 @@ import {
   useResponsiveValue,
   useThrottle,
 } from '@devmoods/ui';
-import { parseMeters, parseSeconds } from './parsers';
+import * as React from 'react';
 
 import Card from './Card';
 import PRESETS from './data.json';
 import PaceCalculatorTimingData from './PaceCalculatorTimingData';
+import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
 
 interface State {
@@ -232,8 +231,8 @@ function PaceCalculator() {
         </p>
 
         <p>
-          Use this tool to go figure out how fast you must run or see how
-          incredibly fast people have managed to run various distances.{' '}
+          Use this tool to go figure out how fast you must run to beat Jakob,
+          Eliud or Hicham.{' '}
           <em>
             If you are running on a regular track, the time in the 400 m row
             should match your watch {'⌚️'} after each lap to be sure you make
