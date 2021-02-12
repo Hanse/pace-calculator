@@ -1,22 +1,21 @@
 import * as React from 'react';
 
+import { Header } from './Header';
 import PaceCalculator from './PaceCalculator';
 
 function App() {
   return (
     <>
-      <header>
-        <h1>Snittfart</h1>
-      </header>
+      <Header title="Snittfart" />
 
       <main>
         <PaceCalculator />
       </main>
 
       <footer>
-        Feedback can be sent to{' '}
-        <a href="mailto:feedback@koren.im">feedback@koren.im</a> or to{' '}
-        <a href="https://twitter.com/Hanse">@Hanse</a> on Twitter
+        Feedback and requests can be sent to{' '}
+        <a href="mailto:post@snittfart.no">post@snittfart.no</a> or to{' '}
+        <a href="https://twitter.com/hanse">@hanse</a> on Twitter
       </footer>
     </>
   );
