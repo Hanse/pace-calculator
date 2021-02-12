@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@devmoods/ui": "^1.2.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "@devmoods/ui": "^1.2.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "scripts": {
     "start": "vite",
@@ -26,10 +26,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/jest": "^26.0.14",
-    "@types/react": "^16.9.52",
-    "@types/react-dom": "^16.9.8",
-    "typescript": "^3.9.7",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
+    "typescript": "^4.1.5",
     "vite": "^2.0.0-beta.69"
   }
 }
