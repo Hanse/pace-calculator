@@ -6,12 +6,12 @@
 
 body {
   background: #f0f0f0;
-  font-family: Lato;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .App-header {
-  background: #d75648;
-  color: var(--colors-white);
+  background: #911d0a;
+  color: white;
 }
 
 .App-navBar {
@@ -25,7 +25,7 @@ body {
   right: 0;
   height: 64px;
   z-index: 100;
-  background: #d75648;
+  background: #911d0a;
 }
 
 .App-navBar > h1 {
@@ -73,21 +73,31 @@ td {
 }
 
 dl.summary {
-  background: #2d3d60;
-  color: var(--colors-white);
+  background: white;
+  color: #333;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: var(--spacing-m);
   column-gap: var(--spacing-m);
+  font-size: 24px;
 }
 
 dt {
   grid-column: 1;
-  font-weight: 700;
+  font-weight: 300;
+  text-align: left;
+  padding-right: 20px;
 }
 
 dd {
-  grid-column: 2;
+  grid-column: 2/4;
+  font-weight: 700;
+  padding: 4px;
+}
+
+dd:last-of-type {
+  background: rgb(247, 222, 125);
+  border-radius: 4px;
 }
 
 a {
@@ -100,4 +110,17 @@ a {
 
 .about p + p {
   margin-top: 16px;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #999;
+  padding-top: 10px;
 }
