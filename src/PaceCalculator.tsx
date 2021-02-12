@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
   Input,
   Select,
@@ -6,12 +8,11 @@ import {
   useResponsiveValue,
   useThrottle,
 } from '@devmoods/ui';
-import * as React from 'react';
+import { parseMeters, parseSeconds } from './parsers';
 
 import Card from './Card';
 import PRESETS from './data.json';
 import PaceCalculatorTimingData from './PaceCalculatorTimingData';
-import { parseMeters, parseSeconds } from './parsers';
 import SplitCalculator from './SplitCalculator';
 
 interface State {
@@ -106,7 +107,7 @@ function useLocationState(query: string) {
   const throttledQuery = useThrottle(query, 500);
 
   React.useEffect(() => {
-    (global as any).history.pushState(null, null, throttledQuery);
+    (window as any).history.pushState(null, null, throttledQuery);
   }, [throttledQuery]);
 }
 
