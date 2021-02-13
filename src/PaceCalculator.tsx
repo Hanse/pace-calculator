@@ -181,17 +181,9 @@ function PaceCalculator() {
         </Stack>
       </section>
 
-      <section>
+      <section className={!meters || !seconds ? 'blurred' : ''}>
         <h2>Splits</h2>
-        <Card
-          style={{
-            ...((!meters || !seconds) && {
-              filter: 'blur(6px)',
-              opacity: 0.5,
-            }),
-          }}
-          className="card dmk-margin-top-s dmk-padding-m"
-        >
+        <Card className="card dmk-margin-top-s dmk-padding-m">
           <SplitCalculator
             meters={meters}
             seconds={seconds}
@@ -201,17 +193,9 @@ function PaceCalculator() {
         </Card>
       </section>
 
-      <section>
+      <section className={!meters || !seconds ? 'blurred' : ''}>
         <h2>Timing data</h2>
-        <Card
-          style={{
-            ...((!meters || !seconds) && {
-              filter: 'blur(6px)',
-              opacity: 0.5,
-            }),
-          }}
-          className="card dmk-margin-top-s"
-        >
+        <Card className="card dmk-margin-top-s">
           <PaceCalculatorTimingData meters={meters} seconds={seconds} />
         </Card>
       </section>

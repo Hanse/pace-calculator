@@ -25,12 +25,16 @@ export function Header({ title }: HeaderProps) {
   return (
     <header className="App-header">
       <div className="App-navBar">
-        <h1 ref={titleRef}>{title}</h1>
+        <div className="content-view">
+          <h1 ref={titleRef}>{title}</h1>
+        </div>
       </div>
 
-      <h1 className="App-heading" aria-hidden>
-        {title}
-      </h1>
+      <div className="content-view">
+        <h1 className="App-heading" aria-hidden>
+          {title}
+        </h1>
+      </div>
     </header>
   );
 }
