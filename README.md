@@ -1,7 +1,5 @@
 # snittfart
 
-> How fast must I run?
+> Running pace calculators
 
-Live on [https://running.koren.im](https://running.koren.im) 🏃🏽‍♀️
-
-![Screenshot](./screenshot.png)
+Live on [https://snittfart.no](https://snittfart.no) 🏃🏽‍♀️
