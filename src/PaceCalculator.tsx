@@ -123,12 +123,6 @@ function PaceCalculator() {
     `?time=${time}&distance=${distance}&splitValue=${splitValue}`
   );
 
-  const presetTitle = useResponsiveValue([
-    'Or a preset',
-    'Or you can select from our presets',
-    'Or you can select from our presets',
-  ]);
-
   const handlePresetSelect: React.FormEventHandler<HTMLSelectElement> = (e) => {
     dispatch({
       type: 'PRESET_SELECTED',
@@ -181,7 +175,7 @@ function PaceCalculator() {
             onChange={handleInput('TIME_CHANGED')}
           />
 
-          <h3>{presetTitle}</h3>
+          <h3>Or select a preset</h3>
 
           <Select onChange={handlePresetSelect} options={presetOptions} />
         </Stack>
